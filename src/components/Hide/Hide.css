@@ -1,0 +1,21 @@
+.hideWrapper.hide {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    margin: 0;
+    padding: 0;
+    z-index: -1000;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+
+}
+.hideWrapper {
+    transition: transform .3s;
+    opacity: 1;
+    visibility: visible;
+}

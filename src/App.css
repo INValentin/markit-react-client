@@ -1,0 +1,30 @@
+.appWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.appWrapper > .content {
+    flex: 1;
+}
+
+.contentWrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+footer {
+    padding: 1rem;
+    background-color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-color);
+    text-align: center;
+}
+
+footer span {
+    display: inline-block;
+    font-weight: lighter;
+}

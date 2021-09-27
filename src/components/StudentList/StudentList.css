@@ -1,0 +1,42 @@
+.studentList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    padding: .25rem;
+    background-color: var(--accent-color-2-op);
+    border-radius: .5rem;   
+}
+
+.student {
+    padding: .35rem .5rem;
+    width: 100%;
+    border-radius: .25rem;
+    cursor: pointer;
+    transition: .3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.student:hover {
+    background-color: var(--dark-color-op);
+    color: var(--light-color);
+}
+
+.studentName:hover {
+    text-decoration: underline;
+}
+
+.studentFilter {
+    margin: .5rem 0;
+}
+
+.studentFilter select {
+    box-shadow: 1px 1px 2px 2px var(--dark-color-op);
+}
+
+.filterList {
+    display: flex;
+    gap: .5rem;
+}

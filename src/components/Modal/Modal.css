@@ -1,0 +1,40 @@
+.modalWrapper {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, .5);
+    min-height: 100vh;
+    width: 100%;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-color);
+    backdrop-filter: blur(2px);
+}
+
+.modalWrapper.hide {
+    transform: translateY(-10px);
+    visibility: hidden;
+    height: 0;
+    z-index: -1000;
+    opacity: 0;
+}
+
+.closeBtn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 99px;
+    border-top-right-radius: 0;
+    border: 0;
+    padding: 10px;
+    font-weight: 600;
+    opacity: .5;
+    background: tomato;
+    color: var(--light-color);
+    cursor: pointer;
+}
+
+.closeBtn:hover {
+    opacity: 1;
+}

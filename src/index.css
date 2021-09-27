@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --light-color: #f7f4ef;
+    --light-color-op: #f7f4ef80;
+    --dark-color: #342628;
+    --dark-color-op: #34262880;
+    --accent-color-1: #788402;
+    --accent-color-2: #feaa00;
+    --accent-color-1-op: #78840280;
+    --accent-color-2-op: #fea90080;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    color: var(--dark-color);
+}
+
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-color-2);
+    font-weight: bold;
+}
+
+a, button, input {
+    transition: .3s;
+}
+
+/* utils */
+
+.btn {
+    padding: .75rem 1rem;
+    border-radius: .75rem;
+    margin: .15rem;
+    border: 0;
+    font-weight: 500;
+    font-size: large;
+    cursor: pointer;
+    text-transform: capitalize;
+    background-color: var(--accent-color-1-op);
+    color: var(--dark-color);
+    box-shadow: 1.5px 1.5px 5px var(--dark-color);
+}
+
+.btn:hover{
+    box-shadow: 1.5px 1.5px 0px var(--accent-color-2);
+    transform: translateY(3px);
+}
+
+.btn.active, .btn:focus {
+    color: var(--light-color);
+    background-color: var(--accent-color-1);
+    box-shadow: 1px 2px 1px var(--accent-color-2);
+    transform: translateY(3px);
+}
+
+.btn.btnSm {
+    padding: .35rem .75rem;
+    font-size: small;
+    border-radius: .5rem;
+}
