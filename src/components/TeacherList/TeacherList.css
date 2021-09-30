@@ -8,6 +8,12 @@
     border-radius: .5rem;   
 }
 
+.teacherHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .teacher {
     padding: .35rem .25rem;
     width: 100%;

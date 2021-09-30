@@ -1,10 +1,21 @@
 import React from 'react'
 import './TeacherList.css'
 
+import Modal, { useModal } from '../Modal/Modal'
+import { TeacherForm } from '../../Forms'
+
 const TeacherList = () => {
+  const { show, toggleModal, hideModal } = useModal()
+   
     return (
         <div className="teacherWrapper">
-      <h2 className="teacherHeader">Teachers</h2>
+          <Modal onHide={hideModal} show={show}>
+            <TeacherForm />
+          </Modal>
+          <div className="teacherHeader">
+            <h2>Teachers</h2>
+            <button onClick={toggleModal} className="btn">Create Teacher</button>
+          </div>
 
       <div className="inputWrapper">
           <label htmlFor="searchTeacher">Search</label>

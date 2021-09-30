@@ -1,10 +1,22 @@
 import React from 'react';
 import './StudentList.css';
 
+import Modal, { useModal } from "../Modal/Modal"
+import { StudentForm } from '../../Forms';
+
 const StudentList = () => {
+  const {show, hideModal, toggleModal} = useModal()
+
+
   return (
     <div className="studentWrapper">
+      <Modal onHide={hideModal} show={show}>
+        <StudentForm />
+      </Modal>
+      <div className="studentHeader">
       <h2 className="studentHeader">Students</h2>
+      <button onClick={toggleModal} className="btn">Create Student</button>
+      </div>
       <div className="filterList">
         <div className="inputWrapper studentFilter">
           <label htmlFor="stdpt">Select Department</label>

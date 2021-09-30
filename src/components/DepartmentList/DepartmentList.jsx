@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './DepartmentList.css';
 
+import { DepartmentForm } from '../../Forms';
+import Modal, { useModal } from '../Modal/Modal'
+
 const DepartmentList = () => {
+  const { show, hideModal, toggleModal } = useModal()
+
   return (
     <div className="dptWrapper">
-      <h2 className="dptHeader">Departments</h2>
+      <Modal show={show} onHide={hideModal}>
+        <DepartmentForm />
+      </Modal>
+      <div className="dptHeader">
+        <h2>Departments</h2>  
+        <button onClick={toggleModal} className="btn">Create department</button>
+      </div>
       <div className="dptList">
         <div className="dpt">
           <span className="dptName">Computer Science</span>

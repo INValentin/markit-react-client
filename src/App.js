@@ -3,7 +3,7 @@ import './App.css'
 import Nav from './components/Nav/Nav'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
-import { Home, Account, Create, View } from './pages'
+import { Home, Account, View } from './pages'
 
 function App() {
   return (
@@ -11,7 +11,6 @@ function App() {
       <Switch>
         <Route path="/home" exact component={() => <Layout><Home /></Layout>} />
         <Route path="/view" exact component={() => <Layout><View /></Layout>} />
-        <Route path="/create" exact component={() => <Layout><Create /></Layout>} />
         <Route path="/account" exact component={() => <Layout><Account /></Layout>} />
         <Redirect to="/home" />
       </Switch>

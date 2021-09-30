@@ -1,11 +1,21 @@
 import React from 'react';
 import './ModuleList.css';
 
+import {ModuleForm} from '../../Forms';
+import Modal, {useModal} from '../Modal/Modal';
+
 const ModuleList = () => {
+  const {show, toggleModal, hideModal} = useModal ();
 
   return (
     <div className="moduleWrapper">
-      <h2 className="moduleHeader">Modules</h2>
+      <Modal onHide={hideModal} show={show}>
+        <ModuleForm />
+      </Modal>
+      <div className="moduleHeader">
+        <h2 className="moduleHeader">Modules</h2>
+        <button onClick={toggleModal} className="btn">Create Module</button>
+      </div>
       <div className="filterList">
         <div className="inputWrapper moduleFilter">
           <label htmlFor="dpt">Select Department</label>

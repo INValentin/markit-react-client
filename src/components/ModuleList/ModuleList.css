@@ -8,6 +8,13 @@
     border-radius: .5rem;   
 }
 
+
+.moduleHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .module {
     padding: .35rem .5rem;
     width: 100%;
