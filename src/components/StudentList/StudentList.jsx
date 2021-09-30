@@ -1,10 +1,19 @@
-import React from 'react';
+import React, {useState } from 'react';
 import './StudentList.css';
 
 import Modal, { useModal } from "../Modal/Modal"
 import { StudentForm } from '../../Forms';
+import Student from '../Student/Student';
 
 const StudentList = () => {
+  const [students, setStudents] = useState([
+    {name: "WillyNative"},
+    {name: "MahoroDeborah"},
+    {name: "AngeModal"},
+    {name: "KagaboJohn"},
+    {name: "WinnyHouston"},
+    {name: "JohnSnow"},
+  ])
   const {show, hideModal, toggleModal} = useModal()
 
 
@@ -39,42 +48,7 @@ const StudentList = () => {
       </div>
 
       <div className="studentList">
-        <div className="student">
-          <span className="studentName">Willy Native</span>
-          <div className="studentBtns">
-            <button className="btn viewMarksBtn btnSm">View Marks</button>
-          </div>
-        </div>
-        <div className="student">
-          <span className="studentName">Mahoro Deborah</span>
-          <div className="studentBtns">
-            <button className="btn viewMarksBtn btnSm">View Marks</button>
-          </div>
-        </div>
-        <div className="student">
-          <span className="studentName">Ange Modal</span>
-          <div className="studentBtns">
-            <button className="btn viewMarksBtn btnSm">View Marks</button>
-          </div>
-        </div>
-        <div className="student">
-          <span className="studentName">Kagabo John</span>
-          <div className="studentBtns">
-            <button className="btn viewMarksBtn btnSm">View Marks</button>
-          </div>
-        </div>
-        <div className="student">
-          <span className="studentName">Winny Houston</span>
-          <div className="studentBtns">
-            <button className="btn viewMarksBtn btnSm">View Marks</button>
-          </div>
-        </div>
-        <div className="student">
-          <span className="studentName">John Snow</span>
-          <div className="studentBtns">
-            <button className="btn viewMarksBtn btnSm">View Marks</button>
-          </div>
-        </div>
+        {students.map(std => <Student student={std} key={std.name} />)}
       </div>
 
       <button className="btn moreBtn btnSm">More</button>

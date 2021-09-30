@@ -1,15 +1,11 @@
 import React from 'react'
+import fields from './fields'
+import Form from './Form/Form'
 
 const DepartmentForm = () => {
+    // console.log(fields.department)
     return (
-        <form>
-            <h2 className="formHeader">Department</h2>
-            <div className="inputWrapper">
-                <label htmlFor="dptName">Name</label>
-                <input type="text" id="dptName" />
-            </div>
-            <button className="btn formSubmitBtn">Create Department</button>
-        </form>
+        <Form title="Department" fields={fields.department} submitText="Create department" />
     )
 }
 

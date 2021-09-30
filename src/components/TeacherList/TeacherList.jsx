@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './TeacherList.css'
 
 import Modal, { useModal } from '../Modal/Modal'
 import { TeacherForm } from '../../Forms'
+import Teacher from '../Teacher/Teacher'
 
 const TeacherList = () => {
+  const [teachers, setTeachers] = useState([
+    {name: "Rutamu Willy"},
+    {name: "Gikoko Hajj"},
+    {name: "Ange Mukasine"},
+    {name: "Dr. Muganga John"},
+    {name: "David J Malan"}
+  ])
   const { show, toggleModal, hideModal } = useModal()
    
     return (
@@ -24,24 +32,7 @@ const TeacherList = () => {
       <br />
 
       <div className="teacherList">
-        <div className="teacher">
-          <span className="teacherName">Rutamu Willy</span>
-        </div>
-        <div className="teacher">
-          <span className="teacherName">Gikoko Hajj</span>
-        </div>
-        <div className="teacher">
-          <span className="teacherName">Ange Mukasine</span>
-        </div>
-        <div className="teacher">
-          <span className="teacherName">Dr. Muganga John</span>
-        </div>
-        <div className="teacher">
-          <span className="teacherName">David J Malan</span>
-        </div>
-        <div className="teacher">
-          <span className="teacherName">Ali Huo</span>
-        </div>
+        {teachers.map(t => <Teacher teacher={t} key={t.name} />)}
       </div>
 
       <button className="btn moreBtn btnSm">More</button>

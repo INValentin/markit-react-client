@@ -5,6 +5,7 @@ import './Modal.css';
 export const useModal = () => {
   const [showModal, setShowModal] = useState(false)
 
+  
   return {
     show: showModal,
     toggleModal() {
@@ -21,7 +22,7 @@ export const useModal = () => {
   }
 }
 
-const Modal = ({children, show = false, onHide}) => {
+const Modal = ({children, show = false, onHide, Component=null}) => {
   const toggleHandler = e => {
     if (e.target.classList.contains ('modalWrapper')) {
       if (typeof onHide === 'function') onHide ();
@@ -33,7 +34,7 @@ const Modal = ({children, show = false, onHide}) => {
       onClick={toggleHandler}
       className={`${!show ? 'hide' : ''} modalWrapper`}
     >
-      {children}
+      { typeof Component === 'function' ? <Component /> : children}
       <button onClick={onHide} className="closeBtn">Close</button>
     </div>,
     document.getElementById ('modal-root')

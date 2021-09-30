@@ -1,6 +1,7 @@
 import React from 'react'
 import './Hide.css'
 
+
 const Hide = ({children, show, Component=null}) => {
 
     return (

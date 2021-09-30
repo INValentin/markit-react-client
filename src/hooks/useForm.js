@@ -1,15 +1,15 @@
 import { useState } from 'react'
 
-const useForm = (initialData = {}) => {
-    const [data, setData] = useState({...initialData});
+const useForm = (initialFields = {}) => {
+    const [fields, setFields] = useState({ ...initialFields });
 
-    const changeData = (key, value) => {
-        setData({...data, [key]: value})
+    const setValue = (key, value) => {
+        setFields({ ...fields, [key]: { ...fields[key], value } })
     }
-    
+
     return {
-        data,
-        changeData
+        fields,
+        setValue
     }
 }
 

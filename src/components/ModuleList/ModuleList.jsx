@@ -1,17 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './ModuleList.css';
 
 import {ModuleForm} from '../../Forms';
 import Modal, {useModal} from '../Modal/Modal';
+import Module from '../Module/Module';
 
 const ModuleList = () => {
   const {show, toggleModal, hideModal} = useModal ();
+  const [modules] = useState ([
+    {name: 'Mathematics I'},
+    {name: 'Programming'},
+    {name: 'Statistics'},
+    {name: 'Physics II'},
+  ]);
 
   return (
     <div className="moduleWrapper">
       <Modal onHide={hideModal} show={show}>
         <ModuleForm />
       </Modal>
+
       <div className="moduleHeader">
         <h2 className="moduleHeader">Modules</h2>
         <button onClick={toggleModal} className="btn">Create Module</button>
@@ -37,30 +45,7 @@ const ModuleList = () => {
         </div>
       </div>
       <div className="moduleList">
-        <div className="module">
-          <span className="moduleName">Mathematics I</span>
-          <div className="moduleBtns">
-            <button className="btn viewMarksBtn btnSm">View Marks</button>
-          </div>
-        </div>
-        <div className="module">
-          <span className="moduleName">Programming</span>
-          <div className="moduleBtns">
-            <button className="btn viewMarksBtn btnSm">View Marks</button>
-          </div>
-        </div>
-        <div className="module">
-          <span className="moduleName">Statistics</span>
-          <div className="moduleBtns">
-            <button className="btn viewMarksBtn btnSm">View Marks</button>
-          </div>
-        </div>
-        <div className="module">
-          <span className="moduleName">Physics II</span>
-          <div className="moduleBtns">
-            <button className="btn viewMarksBtn btnSm">View Marks</button>
-          </div>
-        </div>
+        {modules.map (mod => <Module module={mod} key={mod.name} />)}
       </div>
       <button className="btn btnSm moreBtn">More</button>
     </div>

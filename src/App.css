@@ -21,6 +21,7 @@ footer {
     align-items: center;
     justify-content: center;
     color: var(--light-color);
+    display: none;
     text-align: center;
 }
 
