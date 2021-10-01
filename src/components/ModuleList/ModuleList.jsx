@@ -1,18 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './ModuleList.css';
 
 import {ModuleForm} from '../../Forms';
 import Modal, {useModal} from '../Modal/Modal';
 import Module from '../Module/Module';
+import { useDptApi } from '../../hooks/useApi';
 
 const ModuleList = () => {
   const {show, toggleModal, hideModal} = useModal ();
-  const [modules] = useState ([
-    {name: 'Mathematics I'},
-    {name: 'Programming'},
-    {name: 'Statistics'},
-    {name: 'Physics II'},
-  ]);
+  const [modules, setModules] = useState ([]);
+  const { loading, listModules } = useDptApi()
+
+  useEffect(() => {
+    listModules(10)
+    .then(res => {
+      return res.json()
+    })
+    .then(data => {
+      setModules(data.data)
+      // console.log(data)
+    })
+    .catch(err => console.error(err))
+  }, [])
 
   return (
     <div className="moduleWrapper">
@@ -34,7 +43,7 @@ const ModuleList = () => {
             <option value="">Civil Engineering</option>
           </select>
         </div>
-        <div className="inputWrapper moduleFilter">
+        {/* <div className="inputWrapper moduleFilter">
           <label htmlFor="teacher">Select Teacher</label>
           <select id="teacher">
             <option value="">Rutamu Willy</option>
@@ -42,9 +51,10 @@ const ModuleList = () => {
             <option value="">Dr. Muganga John</option>
             <option value="">David J Malan</option>
           </select>
-        </div>
+        </div> */}
       </div>
       <div className="moduleList">
+        { loading && <div className="module">Loading...</div> }
         {modules.map (mod => <Module module={mod} key={mod.name} />)}
       </div>
       <button className="btn btnSm moreBtn">More</button>

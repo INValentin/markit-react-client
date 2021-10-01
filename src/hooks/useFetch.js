@@ -3,32 +3,36 @@ import { useState } from "react"
 const useFetch = () => {
     const [loading, setLoading] = useState(false);
 
-    const request = async (url, options = {}) => {
+    const request = async (url, options = { }) => {
         setLoading(true)
-        await fetch(url, options)
-        setLoading(false)
+        options.headers = { ...(options.headers||{}), 'Accept': 'application/json' }
+        return fetch(url, {...options})
+        .then(res =>  {
+            setLoading(false)
+            return Promise.resolve(res);
+        })
     }
 
     const get = async (url, options = {}) => {
-        await request(url, options);
+        return await request(url, options);
     }
 
     const post = async (url, options = {}) => {
-        await request(url, {
+        return await request(url, {
             ...options,
             method: 'POST'
         })
     }
 
     const put = async (url, options = {}) => {
-        await request(url, {
+        return await request(url, {
             ...options,
             method: 'PUT'
         })
     }
 
     const del = async (url, options = {}) => {
-        await request(url, {
+        return await request(url, {
             ...options,
             method: 'DELETE'
         })

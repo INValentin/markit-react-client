@@ -15,6 +15,7 @@ const fields = {
         index_number: { label: "Index Number", type: "text", value: "" },
         password: { label: "Password", type: "password", value: "" },
         password_confirmation: { label: "Re-Enter Password", type: "password", value: "" },
+        department: { label: "Department", type: "select", options: [], value: "" }
     },
 
     teacher: {

@@ -1,19 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './TeacherList.css'
 
 import Modal, { useModal } from '../Modal/Modal'
 import { TeacherForm } from '../../Forms'
 import Teacher from '../Teacher/Teacher'
+import { useTeacherApi } from '../../hooks/useApi'
 
 const TeacherList = () => {
-  const [teachers, setTeachers] = useState([
-    {name: "Rutamu Willy"},
-    {name: "Gikoko Hajj"},
-    {name: "Ange Mukasine"},
-    {name: "Dr. Muganga John"},
-    {name: "David J Malan"}
-  ])
+  const [teachers, setTeachers] = useState([])
   const { show, toggleModal, hideModal } = useModal()
+  const { loading, index } = useTeacherApi()
+
+  useEffect(() => {
+    index()
+    .then(res => {
+      return res.json()
+    })
+    .then(data => {
+      setTeachers(data.data)
+    })
+    .catch(err => console.error(err))
+  }, [])
    
     return (
         <div className="teacherWrapper">
@@ -32,6 +39,7 @@ const TeacherList = () => {
       <br />
 
       <div className="teacherList">
+        {loading && <div className="teacher">Loading...</div>}
         {teachers.map(t => <Teacher teacher={t} key={t.name} />)}
       </div>
 

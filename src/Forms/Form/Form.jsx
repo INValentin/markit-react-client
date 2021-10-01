@@ -51,7 +51,7 @@ const SelectField = ({field: f, onChange}) => {
 
   return (
     <div className="inputWrapper">
-      <label>{f.label}</label>
+      <label>Select {f.label}</label>
       <select onChange={e => onChange (e.target.value)}>
         {options.map (option => (
           <option key={option.label} value={option.value}>{option.label}</option>

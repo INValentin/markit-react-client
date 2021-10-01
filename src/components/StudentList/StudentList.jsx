@@ -1,20 +1,26 @@
-import React, {useState } from 'react';
+import React, {useState,useEffect } from 'react';
 import './StudentList.css';
 
 import Modal, { useModal } from "../Modal/Modal"
 import { StudentForm } from '../../Forms';
 import Student from '../Student/Student';
+import { useStudentApi } from '../../hooks/useApi';
 
 const StudentList = () => {
-  const [students, setStudents] = useState([
-    {name: "WillyNative"},
-    {name: "MahoroDeborah"},
-    {name: "AngeModal"},
-    {name: "KagaboJohn"},
-    {name: "WinnyHouston"},
-    {name: "JohnSnow"},
-  ])
+  const [students, setStudents] = useState([])
   const {show, hideModal, toggleModal} = useModal()
+  const { loading, index } = useStudentApi()
+
+  useEffect(() => {
+    index()
+    .then(res => {
+      return res.json()
+    })
+    .then(data => {
+      setStudents(data.data)
+    })
+    .catch(err => console.error(err))
+  }, [])
 
 
   return (
@@ -48,6 +54,7 @@ const StudentList = () => {
       </div>
 
       <div className="studentList">
+        {loading && <div className="student">Loading...</div>}
         {students.map(std => <Student student={std} key={std.name} />)}
       </div>
 
