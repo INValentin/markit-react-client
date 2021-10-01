@@ -1,45 +1,55 @@
 const fields = {
     department: {
-        name: { label: "Name", type: "text", value: "" }
+        name: { label: "Name", type: "text" }
     },
 
     module: {
-        name: { label: "Name", type: "text", value: "" },
-        code: { label: "code", type: "text", value: "" },
-        credits: { label: "credits", type: "number", value: "" }
+        name: { label: "Name", type: "text" },
+        code: { label: "code", type: "text" },
+        credits: { label: "credits", type: "number" }
     },
 
     student: {
-        name: { label: "Name", type: "text", value: "" },
-        email: { label: "E-mail", type: "email", value: "" },
-        index_number: { label: "Index Number", type: "text", value: "" },
-        password: { label: "Password", type: "password", value: "" },
-        password_confirmation: { label: "Re-Enter Password", type: "password", value: "" },
-        department: { label: "Department", type: "select", options: [], value: "" }
+        name: { label: "Name", type: "text" },
+        email: { label: "E-mail", type: "email" },
+        index_number: { label: "Index Number", type: "text" },
+        password: { label: "Password", type: "password" },
+        password_confirmation: { label: "Re-Enter Password", type: "password" },
+        department: { label: "Department", type: "select", options: [] }
     },
 
     teacher: {
-        name: { label: "Name", type: "text", value: "" },
-        email: { label: "E-mail", type: "email", value: "" },
-        password: { label: "Password", type: "password", value: "" },
-        password_confirmation: { label: "Re-Enter Password", type: "password", value: "" },
+        name: { label: "Name", type: "text" },
+        email: { label: "E-mail", type: "email" },
+        password: { label: "Password", type: "password" },
+        password_confirmation: { label: "Re-Enter Password", type: "password" },
     },
 
     marks: {
-        module: { label: "Module", type: "select", options: [], value: "" },
-        student: { label: "Student", type: "select", options: [], value: "" },
-        formative: { label: "Formative Assessment", type: "number", value: "" },
-        summative: { label: "Summative Assessment", type: "number", value: "" },
-        academic_year: { label: "Academic Year", type: "text", value: "" },
+        module: { label: "Module", type: "select", options: [] },
+        student: { label: "Student", type: "select", options: [] },
+        formative: { label: "Formative Assessment", type: "number" },
+        summative: { label: "Summative Assessment", type: "number" },
+        academic_year: { label: "Academic Year", type: "text" },
         semester: {
             label: "Semester", type: "select",
             options: [
                 { label: "I", value: "I" },
                 { label: "II", value: "II" }
             ],
-            value: ""
+
         }
     }
 }
 
-export default {...fields};
+Object.entries(fields).forEach(([k, v]) => {
+    for (const field in fields[k]) {
+        if (Object.hasOwnProperty.call(fields[k], field)) {
+            fields[k][field]['errors'] = fields[k][field]['errors'] || []
+            fields[k][field]['value'] = fields[k][field]['value'] || ''
+            fields[k][field]['type'] = fields[k][field]['type'] || 'text'
+        }
+    }
+})
+
+export default { ...fields };

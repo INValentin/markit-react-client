@@ -27,7 +27,7 @@ form :is(h1, h2, h3) {
     margin-bottom: 5px;
 }
 
-.inputWrapper :is(input, select) {
+.inputWrapper :is(input, select, textarea) {
     width: 100%;
     padding: .75rem 1rem;
     border: 0;
@@ -38,6 +38,10 @@ form :is(h1, h2, h3) {
     font-size: 16px;
     color: var(--dark-color);
     box-shadow: 1px 1px 2px 2px var(--dark-color-op);
+}
+
+.inputWrapper.error :is(input, select, textarea) {
+    border: 2px solid red;
 }
 
 .formSubmitBtn {
@@ -51,4 +55,18 @@ form :is(h1, h2, h3) {
     text-transform: uppercase;
     font-size: 2rem;
     margin-top: .15rem;
+}
+
+.errorWrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 0.05rem;
+    margin-bottom: 0.05rem;
+    padding-left: 0.05rem;
+}
+
+.errorWrapper .error {
+    color: red;
+    text-shadow: 1px 1px 2px var(--light-color-op);
 }

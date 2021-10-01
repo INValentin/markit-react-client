@@ -1,11 +1,30 @@
-import React from 'react'
-import fields from './fields'
-import Form from './Form/Form'
+import React from 'react';
+import { useTeacherApi } from '../hooks/useApi';
+import fields from './fields';
+import Form from './Form/Form';
 
 const TeacherForm = () => {
-    return (
-        <Form title="Teacher" fields={fields.teacher} submitText="Create Teacher" />
-    )
-}
+    const { loading, store } = useTeacherApi()
 
-export default TeacherForm
+  const submitHandler = (data, {success, failure}) => {
+    store (JSON.stringify (data)).then (async res => {
+      const data = await res.json ();
+      if (!res.ok) {
+        return data.errors && failure (data);
+      }
+      success ('Teacher created!');
+    });
+  };
+
+  return (
+    <Form
+      loading={loading}
+      onSubmit={submitHandler}
+      title="Teacher"
+      fields={fields.teacher}
+      submitText="Create Teacher"
+    />
+  );
+};
+
+export default TeacherForm;

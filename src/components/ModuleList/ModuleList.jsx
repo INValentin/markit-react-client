@@ -8,25 +8,31 @@ import { useDptApi } from '../../hooks/useApi';
 
 const ModuleList = () => {
   const {show, toggleModal, hideModal} = useModal ();
+  const [dptId, setDptId] = useState(null)
   const [modules, setModules] = useState ([]);
   const { loading, listModules } = useDptApi()
 
   useEffect(() => {
-    listModules(10)
+    if (!Number(dptId)) return undefined
+
+    listModules(dptId)
     .then(res => {
       return res.json()
     })
     .then(data => {
       setModules(data.data)
-      // console.log(data)
     })
     .catch(err => console.error(err))
-  }, [])
+  }, [dptId])
+
+  const addModuleHandler = module => {
+    setModules([...modules, module])
+  }
 
   return (
     <div className="moduleWrapper">
       <Modal onHide={hideModal} show={show}>
-        <ModuleForm />
+        <ModuleForm onSuccess={addModuleHandler} />
       </Modal>
 
       <div className="moduleHeader">
@@ -56,6 +62,7 @@ const ModuleList = () => {
       <div className="moduleList">
         { loading && <div className="module">Loading...</div> }
         {modules.map (mod => <Module module={mod} key={mod.name} />)}
+        {!modules.length && <div className="module">No modules found.</div>}
       </div>
       <button className="btn btnSm moreBtn">More</button>
     </div>

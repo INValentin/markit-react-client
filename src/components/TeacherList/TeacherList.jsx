@@ -40,7 +40,7 @@ const TeacherList = () => {
 
       <div className="teacherList">
         {loading && <div className="teacher">Loading...</div>}
-        {teachers.map(t => <Teacher teacher={t} key={t.name} />)}
+        {teachers.map(t => <Teacher teacher={t} key={t.id} />)}
       </div>
 
       <button className="btn moreBtn btnSm">More</button>

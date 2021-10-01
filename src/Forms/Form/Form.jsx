@@ -2,13 +2,20 @@ import React from 'react';
 import useForm from '../../hooks/useForm';
 
 const Form = ({
+  loading,
   title = 'Fill the form',
   fields: initialFields,
   submitText = 'Send',
+  onSubmit,
 }) => {
-  const {fields, setValue} = useForm (initialFields);
+  const {msg, data, fields, setValue, reset, errorHandler} = useForm (initialFields);
 
-//   console.log(Object.keys (fields))
+  //   console.log(Object.keys (fields))
+
+  function submitHandler (e) {
+    e.preventDefault ();
+    onSubmit && onSubmit (data, {success: reset, failure: errorHandler});
+  }
 
   function renderField (key, field) {
     //   console.log({field})
@@ -16,25 +23,45 @@ const Form = ({
 
     switch (field.type) {
       case 'select':
-        return <SelectField key={key} {...mainProps} />;
+        return <SelectField {...mainProps} />;
       default:
-        return <NormalField key={key} {...mainProps} />;
+        return <NormalField {...mainProps} />;
     }
   }
 
   return (
     <form>
       <h2 className="formHeader">{title}</h2>
-      {Object.keys ({...fields}).map (key => renderField (key, fields[key]))}
+      { msg && <h5 style={{margin: '.15rem 0', textAlign: 'center'}}>{msg}</h5> }
+      {Object.keys ({...fields}).map (key => {
+        return (
+          <div key={key} className={`${Boolean(fields[key].errors.length) ? 'error' : ''} inputWrapper`}>
+            {renderField (key, fields[key])}
+            {Boolean(fields[key].errors.length) &&
+              <div className="errorWrapper">
+                {fields[key].errors.map (err => {
+                  return <div key={err} className="error">{err}</div>;
+                })}
+              </div>}
+          </div>
+        );
+      })}
 
-      <button type="button" className="btn formSubmitBtn">{submitText}</button>
+      <button
+        disabled={loading ? true : false}
+        onClick={submitHandler}
+        type="submit"
+        className="btn formSubmitBtn"
+      >
+        {!loading ? submitText : '...'}
+      </button>
     </form>
   );
 };
 
 const NormalField = ({field: f, onChange}) => {
   return (
-    <div className="inputWrapper">
+    <React.Fragment>
       <label>{f.label}</label>
       <input
         defaultValue={f.value}
@@ -42,7 +69,7 @@ const NormalField = ({field: f, onChange}) => {
         type={f.type}
         onChange={e => onChange (e.target.value)}
       />
-    </div>
+    </React.Fragment>
   );
 };
 
@@ -50,14 +77,16 @@ const SelectField = ({field: f, onChange}) => {
   const options = typeof f.options === 'function' ? f.options () : f.options;
 
   return (
-    <div className="inputWrapper">
+    <React.Fragment>
       <label>Select {f.label}</label>
       <select onChange={e => onChange (e.target.value)}>
         {options.map (option => (
-          <option key={option.label} value={option.value}>{option.label}</option>
+          <option key={option.label} value={option.value}>
+            {option.label}
+          </option>
         ))}
       </select>
-    </div>
+    </React.Fragment>
   );
 };
 

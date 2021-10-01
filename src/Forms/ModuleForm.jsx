@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useModuleApi } from '../hooks/useApi'
 import fields from './fields'
 import Form from './Form/Form'
 
-const ModuleForm = () => {
+const ModuleForm = ({ onSuccess }) => {
+    const [modFields, setModFields] = useState(fields.module)
+    const { store } = useModuleApi()
+
+    const createModuleHandler = data => {
+        // store(data).then(res => {
+        //     console.log(res)
+        // })
+    }
+    
 
     return (
-        <Form title="Module" fields={fields.module} submitText="Create Module" />
+        <Form title="Module" onSubmit={createModuleHandler} fields={modFields} submitText="Create Module" />
     )
 }
 

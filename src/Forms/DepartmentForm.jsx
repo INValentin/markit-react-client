@@ -1,12 +1,30 @@
-import React from 'react'
-import fields from './fields'
-import Form from './Form/Form'
+import React from 'react';
+import {useDptApi} from '../hooks/useApi';
+import fields from './fields';
+import Form from './Form/Form';
 
 const DepartmentForm = () => {
-    // console.log(fields.department)
-    return (
-        <Form title="Department" fields={fields.department} submitText="Create department" />
-    )
-}
+  const {loading, store} = useDptApi ();
 
-export default DepartmentForm
+  const submitHandler = (data, {success, failure}) => {
+    store (JSON.stringify (data)).then (async res => {
+      const data = await res.json ();
+      if (!res.ok) {
+        return data.errors && failure (data);
+      }
+      success ('Department created!');
+    });
+  };
+
+  return (
+    <Form
+      loading={loading}
+      onSubmit={submitHandler}
+      title="Department"
+      fields={fields.department}
+      submitText="Create department"
+    />
+  );
+};
+
+export default DepartmentForm;

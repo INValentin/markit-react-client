@@ -31,7 +31,7 @@ const DepartmentList = () => {
       </div>
       <div className="dptList"> 
         {loading && <div className="dpt">Loading...</div>}
-        {departments.map (dpt => <Department dpt={dpt} key={dpt.name} />)}
+        {departments.map (dpt => <Department dpt={dpt} key={dpt.id} />)}
       </div>
 
       <button className="btn btnSm moreBtn">More</button>
