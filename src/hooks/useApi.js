@@ -2,7 +2,7 @@ import {} from 'react'
 import useFetch from './useFetch'
 
 export const BASE_URL = 'http://localhost:8000/api'
-// const routes = ['index', 'store', 'update', 'delete', 'show'];
+const routes = ['index', 'store', 'update', 'delete', 'show'];
 
 
 const useApi = (resource, custom = {}) => {
@@ -35,6 +35,7 @@ const useApi = (resource, custom = {}) => {
         ...custom
     }
 
+    return 
 }
 
 export const useDptApi = () => {

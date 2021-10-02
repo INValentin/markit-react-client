@@ -62,7 +62,8 @@ const ModuleList = () => {
       <div className="moduleList">
         { loading && <div className="module">Loading...</div> }
         {modules.map (mod => <Module module={mod} key={mod.name} />)}
-        {!modules.length && <div className="module">No modules found.</div>}
+        {!dptId && <p>Please select department to show modules for.</p>}
+        {(dptId && !modules.length) && <div className="module">No modules found.</div>}
       </div>
       <button className="btn btnSm moreBtn">More</button>
     </div>

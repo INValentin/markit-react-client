@@ -9,7 +9,7 @@ import ModuleList from '../../components/ModuleList/ModuleList';
 
 
 const View = () => {
-    const [viewType, setViewType] = useState('teacher')
+    const [viewType, setViewType] = useState('student')
 
   return (
     <div>

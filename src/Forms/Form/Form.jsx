@@ -1,9 +1,12 @@
 import React from 'react';
+
 import useForm from '../../hooks/useForm';
+import { SelectField, NormalField } from '../Fields/index'
+
 
 const Form = ({
   loading,
-  title = 'Fill the form',
+  title = 'Fill the form',      
   fields: initialFields,
   submitText = 'Send',
   onSubmit,
@@ -18,7 +21,6 @@ const Form = ({
   }
 
   function renderField (key, field) {
-    //   console.log({field})
     const mainProps = {field, onChange: v => setValue (key, v)};
 
     switch (field.type) {
@@ -59,35 +61,5 @@ const Form = ({
   );
 };
 
-const NormalField = ({field: f, onChange}) => {
-  return (
-    <React.Fragment>
-      <label>{f.label}</label>
-      <input
-        defaultValue={f.value}
-        placeholder={`Enter ${f.label}`}
-        type={f.type}
-        onChange={e => onChange (e.target.value)}
-      />
-    </React.Fragment>
-  );
-};
-
-const SelectField = ({field: f, onChange}) => {
-  const options = typeof f.options === 'function' ? f.options () : f.options;
-
-  return (
-    <React.Fragment>
-      <label>Select {f.label}</label>
-      <select onChange={e => onChange (e.target.value)}>
-        {options.map (option => (
-          <option key={option.label} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </React.Fragment>
-  );
-};
 
 export default Form;

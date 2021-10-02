@@ -25,6 +25,7 @@ const StudentList = () => {
 
   return (
     <div className="studentWrapper">
+      {/* <span className="loader"></span> */}
       <Modal onHide={hideModal} show={show}>
         <StudentForm />
       </Modal>

@@ -5,7 +5,7 @@ const useFetch = () => {
 
     const request = async (url, options = { }) => {
         setLoading(true)
-        options.headers = { ...(options.headers||{}), 'Accept': 'application/json', 'Content-Type': 'application/json' }
+        options.headers = { ...(options.headers||{}), 'Accept': 'application/json' }
         return fetch(url, {...options})
         .then(res =>  {
             setLoading(false)
