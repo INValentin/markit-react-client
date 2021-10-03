@@ -20,6 +20,7 @@ const Form = ({
     onSubmit && onSubmit (data, {success: reset, failure: errorHandler});
   }
 
+  
   function renderField (key, field) {
     const mainProps = {field, onChange: v => setValue (key, v)};
 
@@ -28,14 +29,19 @@ const Form = ({
         return <SelectField {...mainProps} />;
       default:
         return <NormalField {...mainProps} />;
-    }
+      }
   }
+
+  // React.useEffect(() => {
+  //   console.log(fields)
+  // }, [fields])
 
   return (
     <form>
       <h2 className="formHeader">{title}</h2>
       { msg && <h5 style={{margin: '.15rem 0', textAlign: 'center'}}>{msg}</h5> }
       {Object.keys ({...fields}).map (key => {
+        
         return (
           <div key={key} className={`${Boolean(fields[key].errors.length) ? 'error' : ''} inputWrapper`}>
             {renderField (key, fields[key])}

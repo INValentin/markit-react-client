@@ -7,6 +7,7 @@ const DepartmentForm = () => {
   const {loading, store} = useDptApi ();
 
   const submitHandler = (data, {success, failure}) => {
+    console.log(data)
     store (JSON.stringify (data)).then (async res => {
       const data = await res.json ();
       if (!res.ok) {

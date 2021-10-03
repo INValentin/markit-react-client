@@ -1,13 +1,12 @@
-import {async} from 'jshint/src/prod-params';
 import React, {useEffect, useRef, useState} from 'react';
+import useApi from '../../hooks/useApi';
 import useFetch from '../../hooks/useFetch';
-import useOptions from '../../hooks/useOptions';
 
 const SelectField = ({field: f, onChange}) => {
   const {loading, get} = useFetch ();
   const [data, setData] = useState ({});
   const [options, setOptions] = useState ([]);
-  const {api} = useOptions (
+  const api = useApi (
     () => (typeof f.options === 'string' ? f.options.split ('@')[0] : '')
   );
 
@@ -16,7 +15,6 @@ const SelectField = ({field: f, onChange}) => {
       (async () => {
         if (typeof f.options === 'string') {
           const [apiName, apiMethod] = f.options.split ('@');
-          // return console.log({ api, apiName, apiMethod, mtd: api[apiMethod] })
           const res = await api[apiMethod] ();
           const newData = await res.json ();
           setData (newData);
@@ -58,7 +56,7 @@ const SelectField = ({field: f, onChange}) => {
               <button
                 type="button"
                 onClick={() => navHandler (true)}
-                className="btn btnSm"
+                className="btn btnSm prevBtn"
               >
                 {'<< prev'}
               </button>}
@@ -66,15 +64,17 @@ const SelectField = ({field: f, onChange}) => {
               <button
                 type="button"
                 onClick={() => navHandler (false)}
-                className="btn btnSm"
+                className="btn btnSm nextBtn"
               >
                 {'next >>'}
               </button>}
           </React.Fragment>}
       </div>
-      <select onChange={e => onChange (e.target.value)}>
+      <select defaultValue="" onChange={e => onChange (e.target.value)}>
+        <option value="">...</option>
         {options.map (option => (
           <option
+            // selected={}
             key={option.label || option.id}
             value={option.value || option.id}
           >

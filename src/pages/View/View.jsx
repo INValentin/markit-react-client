@@ -14,6 +14,7 @@ const View = () => {
   return (
     <div>
       <h1 className="viewHeader">View</h1>
+      {/* <span className="loader"></span> */}
       <div className="viewBtnWrapper">
         <button onClick={() => setViewType('department')} className={`${viewType === 'department' ? 'active' : ''} btn viewBtn`}>Departments</button>
         <button onClick={() => setViewType('module')} className={`${viewType === 'module' ? 'active' : ''} btn viewBtn`}>Modules</button>

@@ -76,3 +76,12 @@ form :is(h1, h2, h3) {
     align-items: center;
     justify-content: space-between;
 }
+
+.selectBtnWrapper button.prevBtn {
+    justify-self: flex-start;
+    margin-right: auto;
+}
+.selectBtnWrapper button.nextBtn {
+    justify-self: flex-end;
+    margin-left: auto;
+}

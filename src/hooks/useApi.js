@@ -8,7 +8,7 @@ const routes = ['index', 'store', 'update', 'delete', 'show'];
 const useApi = (resource, custom = {}) => {
     const { loading, get, post, put, del } = useFetch()
 
-    const url = (URL) => BASE_URL + `/${resource}` + URL;
+    const url = (URL) => BASE_URL + `/${typeof resource === "function" ? resource() : resource}` + URL;
     
     return {
         loading,
@@ -92,7 +92,7 @@ export const useModuleApi = () => {
     }
 }
 
-export const useMarks = () => {
+export const useMarksApi = () => {
 
     const endpoints = useApi('marks')
     

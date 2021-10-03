@@ -5,7 +5,8 @@ const NormalField = ({field: f, onChange}) => {
     <React.Fragment>
       <label>{f.label}</label>
       <input
-        defaultValue={f.value}
+        // defaultValue={}
+        value={f.value}
         placeholder={`Enter ${f.label}`}
         type={f.type}
         onChange={e => onChange (e.target.value)}
