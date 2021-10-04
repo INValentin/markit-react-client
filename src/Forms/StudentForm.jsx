@@ -3,7 +3,7 @@ import fields from './fields';
 import Form from './Form/Form';
 import {useStudentApi} from '../hooks/useApi';
 
-const StudentForm = () => {
+const StudentForm = ({ onDone }) => {
   const {loading, store} = useStudentApi ();
 
   const submitHandler = async (data, {success, failure}) => {
@@ -14,6 +14,7 @@ const StudentForm = () => {
         if (!res.ok) {
           return data.errors && failure (data);
         }
+        onDone(data)
         success ('Student created!');
       })
   };

@@ -12,7 +12,7 @@ const TeacherList = () => {
   const { loading, index } = useTeacherApi()
   const [loaded, setLoaded] = useState(false)
 
-  const { loadItems, items:teachers } = useList()
+  const { loadItems, items:teachers, prependItem, MoreBtn } = useList()
 
   useEffect(() => {
     if (!loaded) {
@@ -24,7 +24,7 @@ const TeacherList = () => {
     return (
         <div className="teacherWrapper">
           <Modal onHide={hideModal} show={show}>
-            <TeacherForm />
+            <TeacherForm onDone={prependItem} />
           </Modal>
           <div className="teacherHeader">
             <h2>Teachers</h2>
@@ -42,7 +42,7 @@ const TeacherList = () => {
         {teachers.map(t => <Teacher teacher={t} key={t.id} />)}
       </div>
 
-      <button className="btn moreBtn btnSm">More</button>
+      <MoreBtn />
     </div>
     )
 }

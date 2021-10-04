@@ -1,0 +1,20 @@
+
+.tagList {
+    display: flex;
+}
+
+.tag {
+    padding: .5rem .75rem;
+    margin: 0.25rem;
+    border-radius: .5rem;
+    color: var(--light-color);
+    font-weight: 500;
+    font-size: smaller;
+    cursor: pointer;
+    transition: .3s;
+    background-color: var(--dark-color);
+}
+
+.tag:hover {
+    background-color: var(--dark-color-op);
+}

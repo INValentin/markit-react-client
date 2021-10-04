@@ -10,7 +10,7 @@ import useList from '../../hooks/useList';
 const DepartmentList = () => {
   const { loading, index } = useDptApi()
   const {show, hideModal, toggleModal} = useModal ();
-  const { loadItems, items:departments } = useList()
+  const { loadItems, items:departments, prependItem, MoreBtn } = useList()
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const DepartmentList = () => {
   return (
     <div className="dptWrapper">
       <Modal show={show} onHide={hideModal}>
-        <DepartmentForm />
+        <DepartmentForm onDone={prependItem} />
       </Modal>
       <div className="dptHeader">
         <h2>Departments</h2>
@@ -34,7 +34,7 @@ const DepartmentList = () => {
         {departments.map (dpt => <Department dpt={dpt} key={dpt.id} />)}
       </div>
 
-      <button className="btn btnSm moreBtn">More</button>
+      <MoreBtn />
     </div>
   );
 };

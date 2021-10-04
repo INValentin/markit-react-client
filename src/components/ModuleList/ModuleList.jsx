@@ -10,7 +10,7 @@ import useList from '../../hooks/useList';
 const ModuleList = () => {
   const {show, toggleModal, hideModal} = useModal ();
   const {loading, index} = useModuleApi ();
-  const { loadItems, items:modules } = useList()
+  const { loadItems, items:modules, prependItem, MoreBtn } = useList()
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
@@ -23,41 +23,21 @@ const ModuleList = () => {
   return (
     <div className="moduleWrapper">
       <Modal onHide={hideModal} show={show}>
-        <ModuleForm />
+        <ModuleForm onDone={prependItem} />
       </Modal>
 
       <div className="moduleHeader">
         <h2 className="moduleHeader">Modules</h2>
         <button onClick={toggleModal} className="btn">Create Module</button>
       </div>
-      {/* <div className="filterList">
-        <div className="inputWrapper moduleFilter">
-          <label htmlFor="dpt">Select Department</label>
-          <select id="dpt">
-            <option value="">Computer science</option>
-            <option value="">Pure Mathematics</option>
-            <option value="">Electricity</option>
-            <option value="">Civil Engineering</option>
-          </select>
-        </div>
-        <div className="inputWrapper moduleFilter">
-          <label htmlFor="teacher">Select Teacher</label>
-          <select id="teacher">
-            <option value="">Rutamu Willy</option>
-            <option value="">Gikoko Hajj</option>
-            <option value="">Dr. Muganga John</option>
-            <option value="">David J Malan</option>
-          </select>
-        </div>
-      </div> */}
       <div className="moduleList">
         {loading && <div className="module">Loading...</div>}
         {modules.map (mod => <Module module={mod} key={mod.name} />)}
-        {!modules.length && <div className="module">No modules found.</div>}
+        {!modules.length && !loading && <div className="module">No modules found.</div>}
       </div>
-      <button className="btn btnSm moreBtn">More</button>
+      <MoreBtn />
     </div>
-  );
+  );  
 };
 
 export default ModuleList;

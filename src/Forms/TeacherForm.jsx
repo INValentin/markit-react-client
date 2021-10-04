@@ -3,7 +3,7 @@ import { useTeacherApi } from '../hooks/useApi';
 import fields from './fields';
 import Form from './Form/Form';
 
-const TeacherForm = () => {
+const TeacherForm = ({ action="Create", onDone, handler }) => {
     const { loading, store } = useTeacherApi()
 
   const submitHandler = (data, {success, failure}) => {
@@ -12,6 +12,7 @@ const TeacherForm = () => {
       if (!res.ok) {
         return data.errors && failure (data);
       }
+      onDone(data)
       success ('Teacher created!');
     });
   };
@@ -22,7 +23,7 @@ const TeacherForm = () => {
       onSubmit={submitHandler}
       title="Teacher"
       fields={fields.teacher}
-      submitText="Create Teacher"
+      submitText={"Teacher " + action}
     />
   );
 };

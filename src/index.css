@@ -77,6 +77,14 @@ input {
     border-radius: .5rem;
 }
 
+.btnSuccess {
+    background-color: var(--accent-color-1);
+}
+
+.btnDanger {
+    background-color: tomato;
+}
+
 /* loader */
 
 .loader {

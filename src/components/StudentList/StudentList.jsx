@@ -10,7 +10,7 @@ import useList from '../../hooks/useList';
 const StudentList = () => {
   const {show, hideModal, toggleModal} = useModal()
   const {index, loading} = useStudentApi()
-  const { loadItems, items:students } = useList()
+  const { loadItems, items:students, prependItem, MoreBtn } = useList()
   const [loaded, setLoaded] = useState(false)
 
 
@@ -26,7 +26,7 @@ const StudentList = () => {
     <div className="studentWrapper">
       {/* <span className="loader"></span> */}
       <Modal onHide={hideModal} show={show}>
-        <StudentForm />
+        <StudentForm onDone={prependItem} />
       </Modal>
       <div className="studentHeader">
       <h2 className="studentHeader">Students</h2>
@@ -58,7 +58,7 @@ const StudentList = () => {
         {students.map(std => <Student student={std} key={std.name} />)}
       </div>
 
-      <button className="btn moreBtn btnSm">More</button>
+      <MoreBtn />
     </div>
   );
 };

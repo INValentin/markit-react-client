@@ -3,13 +3,14 @@ import {useModuleApi} from '../hooks/useApi';
 import fields from './fields';
 import Form from './Form/Form';
 
-const ModuleForm = ({onSuccess}) => {
+const ModuleForm = ({onDone}) => {
   const {loading, store} = useModuleApi ();
 
   const submitHandler = (data, { success, failure }) => {
     store (JSON.stringify(data)).then (async res => {
         const data = await res.json()
         if (res.ok) {
+            onDone(data)
             return success("Module created!")
         }
         failure(data)

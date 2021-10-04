@@ -19,9 +19,14 @@ const useList = () => {
         loadedRef.current = true
     }
 
-    const addItem = (item) => {
+    const appendItem = (item) => {
         const currentData = data.data || []
         setData({ ...data, data: [...currentData, item] })
+    }
+
+    const prependItem = (item) => {
+        const currentData = data.data || []
+        setData({ ...data, data: [item, ...currentData] })
     }
 
     const removeItem = (item) => {
@@ -29,8 +34,24 @@ const useList = () => {
         setData({ ...data, data: currentData.filter(it => it.id !== item.id) })
     }
 
-    const MoreBtn = () => {
-        return <button className="btn btnSm moreBtn" style={{ margin: ".25rem .05rem" }}>More</button>
+    const MoreBtn = (callback = null) => {
+        return <div className="selectBtnWrapper">
+            {data.prev_page_url &&
+                <button
+                    onClick={() => typeof callback === 'function' && callback(data.prev_page_url)}
+                    className="btn btnSm moreBtn"
+                    style={{ margin: ".25rem .05rem" }}>
+                    {"<<<Prev"}
+                </button>
+            }
+            {data.next_page_url &&
+                <button onClick={() => typeof callback === 'function' && callback(data.next_page_url)}
+                    className="btn btnSm moreBtn"
+                    style={{ margin: ".25rem .05rem" }}>
+                    {"Next>>"}
+                </button>
+            }
+        </div>
     }
 
     useEffect(() => {
@@ -40,7 +61,7 @@ const useList = () => {
     }, [data])
 
     return {
-        loaded, data, items, loadItems, addItem, removeItem, MoreBtn, setData
+        loaded, data, items, loadItems, prependItem, appendItem, removeItem, MoreBtn, setData
     }
 }
 

@@ -70,17 +70,25 @@ export const useStudentApi = () => {
 }
 
 export const useTeacherApi = () => {
+    const { loading, get } = useFetch()
     const endpoints = useApi('teachers')
 
-    return { ...endpoints }
+    return { 
+        ...endpoints,
+        loading: loading || endpoints.loading,
+        listModules(id) {
+            return get(endpoints.url(`/${id}/modules`))
+        }
+    }
 }
 
 export const useModuleApi = () => {
-    const { post, get } = useFetch()
+    const { loading, post, get } = useFetch()
     const endpoints = useApi('modules')
 
     return {
         ...endpoints,
+        loading: loading || endpoints.loading,
         storeMarks(id, body) {
             return post(endpoints.url(`/${id}/marks`), { body })
         },

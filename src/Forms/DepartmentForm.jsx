@@ -3,7 +3,7 @@ import {useDptApi} from '../hooks/useApi';
 import fields from './fields';
 import Form from './Form/Form';
 
-const DepartmentForm = () => {
+const DepartmentForm = ({ onDone }) => {
   const {loading, store} = useDptApi ();
 
   const submitHandler = (data, {success, failure}) => {
@@ -13,6 +13,7 @@ const DepartmentForm = () => {
       if (!res.ok) {
         return data.errors && failure (data);
       }
+      onDone(data)
       success ('Department created!');
     });
   };
