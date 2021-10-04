@@ -1,43 +1,56 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
 
 export const useModal = () => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState (false);
 
-  
   return {
     show: showModal,
-    toggleModal() {
-      setShowModal(prev => !prev)
-    },
-    
-    hideModal() {
-      setShowModal(false)
+    toggleModal () {
+      setShowModal (prev => !prev);
     },
 
-    showModal() {
-      setShowModal(true)
-    }
-  }
-}
+    hideModal () {
+      setShowModal (false);
+    },
 
-const Modal = ({children, show = false, onHide, Component=null}) => {
+    showModal () {
+      setShowModal (true);
+    },
+  };
+};
+
+const Modal = ({children, show = false, onHide, Component = null}) => {
+  const [wasShown, setWasShown] = useState (false);
+
+  useEffect (
+    () => {
+      if (!wasShown && show) {
+        setWasShown (true);
+      }
+    },
+    [show, wasShown]
+  );
+
   const toggleHandler = e => {
     if (e.target.classList.contains ('modalWrapper')) {
       if (typeof onHide === 'function') onHide ();
     }
   };
 
-  return ReactDOM.createPortal (
-    <div
-      onClick={toggleHandler}
-      className={`${!show ? 'hide' : ''} modalWrapper`}
+  return (
+    wasShown &&
+    ReactDOM.createPortal (
+      <div
+        onClick={toggleHandler}
+        className={`${!show ? 'hide' : ''} modalWrapper`}
       >
-      <button onClick={onHide} className="closeBtn">Close</button>
-      { typeof Component === 'function' ? <Component /> : children}
-    </div>,
-    document.getElementById ('modal-root')
+        <button onClick={onHide} className="closeBtn">Close</button>
+        {typeof Component === 'function' ? <Component /> : children}
+      </div>,
+      document.getElementById ('modal-root')
+    )
   );
 };
 

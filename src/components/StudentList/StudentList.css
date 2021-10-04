@@ -38,7 +38,7 @@
 }
 
 .studentName {
-    /* font-weight: 500; */
+    font-weight: 500;
 }
 
 .studentName:hover {

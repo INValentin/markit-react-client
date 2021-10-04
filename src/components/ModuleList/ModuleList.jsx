@@ -1,34 +1,29 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './ModuleList.css';
 
 import {ModuleForm} from '../../Forms';
 import Modal, {useModal} from '../Modal/Modal';
 import Module from '../Module/Module';
 import {useModuleApi} from '../../hooks/useApi';
+import useList from '../../hooks/useList';
 
 const ModuleList = () => {
   const {show, toggleModal, hideModal} = useModal ();
-  const [modules, setModules] = useState ([]);
   const {loading, index} = useModuleApi ();
+  const { loadItems, items:modules } = useList()
+  const [loaded, setLoaded] = useState(false)
 
-  useEffect (() => {
-    index ()
-      .then (res => {
-        return res.json ();
-      })
-      .then (data => {
-        setModules (data.data);
-      });
-  }, []);
-
-  const addModuleHandler = module => {
-    setModules ([...modules, module]);
-  };
+  useEffect(() => {
+    if (!loaded) {
+      loadItems(index)
+      setLoaded(true)
+    }
+  }, [index, loadItems, loaded])
 
   return (
     <div className="moduleWrapper">
       <Modal onHide={hideModal} show={show}>
-        <ModuleForm onSuccess={addModuleHandler} />
+        <ModuleForm />
       </Modal>
 
       <div className="moduleHeader">

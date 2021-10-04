@@ -1,24 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './DepartmentList.css';
 
 import {DepartmentForm} from '../../Forms';
 import Modal, {useModal} from '../Modal/Modal';
 import Department from '../Department/Department';
 import { useDptApi } from '../../hooks/useApi';
+import useList from '../../hooks/useList';
 
 const DepartmentList = () => {
   const { loading, index } = useDptApi()
-  const [departments, setDepartments] = useState ([]);
   const {show, hideModal, toggleModal} = useModal ();
+  const { loadItems, items:departments } = useList()
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    index()
-    .then(res => res.json())
-    .then(data => {
-      setDepartments(data.data)
-    })
-    .catch(err => console.error(err))
-  }, [])
+    if (!loaded) {
+      loadItems(index)
+      setLoaded(true)
+    }
+  }, [index, loadItems, loaded])
 
   return (
     <div className="dptWrapper">

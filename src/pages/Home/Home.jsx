@@ -4,7 +4,7 @@ import './Home.css'
 const Home = () => {
     return (
         <div>
-            Home
+            Home { process.env.SERVER_URL }
         </div>
     )
 }

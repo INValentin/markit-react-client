@@ -91,7 +91,6 @@ input {
     box-shadow: 0 0 2px 1.2px rgba(0, 0, 0, .5);
 }
 
-
 @keyframes border-spin {
     0% {
         transform: rotate(0deg);

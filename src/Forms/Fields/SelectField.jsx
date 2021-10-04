@@ -1,30 +1,34 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import useApi from '../../hooks/useApi';
 import useFetch from '../../hooks/useFetch';
+import useList from '../../hooks/useList';
 
 const SelectField = ({field: f, onChange}) => {
   const {loading, get} = useFetch ();
-  const [data, setData] = useState ({});
+  const [loaded, setLoaded] = useState (false);
+  const {loadItems, data, items, setData} = useList ();
   const [options, setOptions] = useState ([]);
   const api = useApi (
     () => (typeof f.options === 'string' ? f.options.split ('@')[0] : '')
   );
 
+  useEffect(() => { 
+    setOptions([...items])
+  }, [items])
+
   useEffect (
     () => {
-      (async () => {
+      if (!loaded) {
         if (typeof f.options === 'string') {
-          const [apiName, apiMethod] = f.options.split ('@');
-          const res = await api[apiMethod] ();
-          const newData = await res.json ();
-          setData (newData);
-          return;
+          const apiMethod = f.options.split ('@')[1];
+          loadItems (api[apiMethod]);
         } else {
           setOptions (f.options);
         }
-      }) ();
+        setLoaded (true);
+      }
     },
-    [f.options]
+    [loaded, api, f, loadItems]
   );
 
   async function navHandler (prev = false) {
@@ -34,22 +38,11 @@ const SelectField = ({field: f, onChange}) => {
     setData (newData);
   }
 
-  useEffect (
-    () => {
-      if (data.data) {
-        setOptions (data.data);
-        // console.log({data})
-      }
-    },
-    [data]
-  );
-  //   const options = typeof f.options === 'function' ? f.options () : f.options;
-
   return (
     <React.Fragment>
       <label>Select {f.label}</label>
       <div className="selectBtnWrapper">
-        {(api.loading || loading) && <span className="loader"></span>}
+        {(api.loading || loading) && <span className="loader" />}
         {!loading &&
           <React.Fragment>
             {data.prev_page_url &&

@@ -1,26 +1,25 @@
-import React, {useState,useEffect } from 'react';
+import React, {useEffect, useState } from 'react';
 import './StudentList.css';
 
 import Modal, { useModal } from "../Modal/Modal"
 import { StudentForm } from '../../Forms';
 import Student from '../Student/Student';
 import { useStudentApi } from '../../hooks/useApi';
+import useList from '../../hooks/useList';
 
 const StudentList = () => {
-  const [students, setStudents] = useState([])
   const {show, hideModal, toggleModal} = useModal()
-  const { loading, index } = useStudentApi()
+  const {index, loading} = useStudentApi()
+  const { loadItems, items:students } = useList()
+  const [loaded, setLoaded] = useState(false)
+
 
   useEffect(() => {
-    index()
-    .then(res => {
-      return res.json()
-    })
-    .then(data => {
-      setStudents(data.data)
-    })
-    .catch(err => console.error(err))
-  }, [])
+    if (!loaded) {
+      loadItems(index)
+      setLoaded(true)
+    }
+  }, [loadItems, index, loaded])
 
 
   return (

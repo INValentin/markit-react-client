@@ -52,6 +52,7 @@ const useForm = (initialFields = {}) => {
     }, [initialFields])
 
     return {
+        msg,
         data,
         fields,
         reset,

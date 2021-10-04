@@ -13,8 +13,6 @@ const Form = ({
 }) => {
   const {msg, data, fields, setValue, reset, errorHandler} = useForm (initialFields);
 
-  //   console.log(Object.keys (fields))
-
   function submitHandler (e) {
     e.preventDefault ();
     onSubmit && onSubmit (data, {success: reset, failure: errorHandler});
@@ -32,14 +30,10 @@ const Form = ({
       }
   }
 
-  // React.useEffect(() => {
-  //   console.log(fields)
-  // }, [fields])
-
   return (
     <form>
       <h2 className="formHeader">{title}</h2>
-      { msg && <h5 style={{margin: '.15rem 0', textAlign: 'center'}}>{msg}</h5> }
+      { msg && <h3 style={{margin: '.15rem 0', textAlign: 'center', color: "var(--accent-color-1)"}}>{msg}</h3> }
       {Object.keys ({...fields}).map (key => {
         
         return (

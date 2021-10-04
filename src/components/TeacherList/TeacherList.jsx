@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './TeacherList.css'
 
 import Modal, { useModal } from '../Modal/Modal'
 import { TeacherForm } from '../../Forms'
 import Teacher from '../Teacher/Teacher'
 import { useTeacherApi } from '../../hooks/useApi'
+import useList from '../../hooks/useList'
 
 const TeacherList = () => {
-  const [teachers, setTeachers] = useState([])
   const { show, toggleModal, hideModal } = useModal()
   const { loading, index } = useTeacherApi()
+  const [loaded, setLoaded] = useState(false)
+
+  const { loadItems, items:teachers } = useList()
 
   useEffect(() => {
-    index()
-    .then(res => {
-      return res.json()
-    })
-    .then(data => {
-      setTeachers(data.data)
-    })
-    .catch(err => console.error(err))
-  }, [])
+    if (!loaded) {
+      loadItems(index)
+      setLoaded(true)
+    }
+  }, [loadItems, index, loaded])
    
     return (
         <div className="teacherWrapper">
