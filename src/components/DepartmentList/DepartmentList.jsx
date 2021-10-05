@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './DepartmentList.css';
 
-import {DepartmentForm} from '../../Forms';
 import Modal, {useModal} from '../Modal/Modal';
 import Department from '../Department/Department';
 import { useDptApi } from '../../hooks/useApi';
 import useList from '../../hooks/useList';
+import ModelForm from '../../Forms/ModelForm';
 
 const DepartmentList = () => {
   const { loading, index } = useDptApi()
@@ -23,7 +23,7 @@ const DepartmentList = () => {
   return (
     <div className="dptWrapper">
       <Modal show={show} onHide={hideModal}>
-        <DepartmentForm onDone={prependItem} />
+        <ModelForm onDone={prependItem} modelName="department" />
       </Modal>
       <div className="dptHeader">
         <h2>Departments</h2>

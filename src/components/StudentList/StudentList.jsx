@@ -2,10 +2,10 @@ import React, {useEffect, useState } from 'react';
 import './StudentList.css';
 
 import Modal, { useModal } from "../Modal/Modal"
-import { StudentForm } from '../../Forms';
 import Student from '../Student/Student';
 import { useStudentApi } from '../../hooks/useApi';
 import useList from '../../hooks/useList';
+import ModelForm from '../../Forms/ModelForm';
 
 const StudentList = () => {
   const {show, hideModal, toggleModal} = useModal()
@@ -26,7 +26,7 @@ const StudentList = () => {
     <div className="studentWrapper">
       {/* <span className="loader"></span> */}
       <Modal onHide={hideModal} show={show}>
-        <StudentForm onDone={prependItem} />
+        <ModelForm modelName="student" onDone={prependItem} />
       </Modal>
       <div className="studentHeader">
       <h2 className="studentHeader">Students</h2>

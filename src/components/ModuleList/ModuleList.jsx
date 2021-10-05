@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './ModuleList.css';
 
-import {ModuleForm} from '../../Forms';
 import Modal, {useModal} from '../Modal/Modal';
 import Module from '../Module/Module';
 import {useModuleApi} from '../../hooks/useApi';
 import useList from '../../hooks/useList';
+import ModelForm from '../../Forms/ModelForm';
 
 const ModuleList = () => {
   const {show, toggleModal, hideModal} = useModal ();
@@ -23,7 +23,7 @@ const ModuleList = () => {
   return (
     <div className="moduleWrapper">
       <Modal onHide={hideModal} show={show}>
-        <ModuleForm onDone={prependItem} />
+        <ModelForm onDone={prependItem} modelName="module" />
       </Modal>
 
       <div className="moduleHeader">

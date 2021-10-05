@@ -57,23 +57,12 @@ Object.keys(fields).forEach(group => {
 })
 
 export const getClone = (key) => {
+    // console.log({key})
     const clone = { ...fields[key] };
     Object.keys(clone).forEach(k => {
         clone[k] = { ...fields[key][k] };
     });
     return clone
 }
-
-export const populateFields = (instance, fields) => {
-    const newFields = { ...fields };
-    Object.keys(newFields).forEach(k => {
-        if (k in instance) {
-            newFields[k].value = instance[k];
-        } else {
-            delete newFields[k];
-        }
-    });
-    return (newFields);
-};
 
 export default fields;

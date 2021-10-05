@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import './TeacherList.css';
 
 import Modal, {useModal} from '../Modal/Modal';
-import {TeacherForm} from '../../Forms';
+// import {TeacherForm} from '../../Forms';
 import Teacher from '../Teacher/Teacher';
 import {useTeacherApi} from '../../hooks/useApi';
 import useList from '../../hooks/useList';
+import ModelForm from '../../Forms/ModelForm';
 
 const TeacherList = () => {
   const {show, toggleModal, hideModal} = useModal ();
@@ -27,23 +28,19 @@ const TeacherList = () => {
   return (
     <div className="teacherWrapper">
       <Modal onHide={hideModal} show={show}>
-        <TeacherForm onDone={prependItem} />
+        <ModelForm
+          onDone={prependItem}
+          modelName={{fields: 'teacher', label: 'Teacher', api: 'teachers'}}
+        />
       </Modal>
       <div className="teacherHeader">
         <h2>Teachers</h2>
         <button onClick={toggleModal} className="btn">Create Teacher</button>
       </div>
 
-      <div className="inputWrapper">
-        <label htmlFor="searchTeacher">Search</label>
-        <input type="search" placeholder="search teachers" id="searchTeacher" />
-      </div>
-      <br />
-
       <div className="teacherList">
         {loading && <div className="teacher">Loading...</div>}
         {teachers.map (t => {
-          // console.log (t);
           return <Teacher teacher={t} key={t.id} />;
         })}
       </div>

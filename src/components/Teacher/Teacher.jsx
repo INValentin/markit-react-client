@@ -2,7 +2,7 @@ import React from 'react';
 import './Teacher.css';
 import Modal, {useModal} from '../Modal/Modal';
 import ShowTeacher from '../ShowTeacher/ShowTeacher';
-import {TeacherForm} from '../../Forms';
+import ModelForm from '../../Forms/ModelForm';
 
 const Teacher = ({teacher, onUpdate, onDelete}) => {
   const {show, toggleModal, hideModal} = useModal ();
@@ -28,7 +28,12 @@ const Teacher = ({teacher, onUpdate, onDelete}) => {
         <ShowTeacher onUpdate={showUpdateModalHandler} teacher={teacher} />
       </Modal>
       <Modal show={showUpdate} onHide={hideUpdateModal}>
-        <TeacherForm onDone={updateHandler} action="Update" teacher={teacher} />
+        <ModelForm
+          onDone={updateHandler}
+          modelName={'teacher'}
+          action="Update"
+          instance={teacher}
+        />
       </Modal>
       <span onClick={toggleModal} className="teacherName">{teacher.name}</span>
     </div>

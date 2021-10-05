@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDptApi, useTeacherApi } from '../../hooks/useApi';
 import DetailList from '../DetailList/DetailList';
 
-const ShowModule = ({module}) => {
+const ShowModule = ({module, onUpdate, onDelete}) => {
     const { loading:teacherLoading, show:showTeacher } = useTeacherApi()
     const { loading:dptLoading, show: showDpt } = useDptApi()
     const [teacherLoaded, setTeacherLoaded] = useState(false)
@@ -41,8 +41,8 @@ const ShowModule = ({module}) => {
       <h4 className="actionsHeader">Actions</h4>
       <div className="actionsWrapper">
         <div className="actionsList">
-          <button className="actionBtn btnSuccess btn">Update</button>
-          <button className="actionBtn btnDanger btn">Delete</button>
+          <button onClick={() => onUpdate && onUpdate()} className="actionBtn btnSuccess btn">Update</button>
+          <button onClick={() => onDelete && onDelete()} className="actionBtn btnDanger btn">Delete</button>
         </div>
       </div>
     </div>

@@ -22,11 +22,13 @@ const useList = () => {
     }
 
     const appendItem = (item) => {
-        const currentData = data.data || []
+        const currentData = (data.data || [])
         setData({ ...data, data: [...currentData, item] })
     }
 
     const prependItem = (item) => {
+        if (!item?.id) return
+        console.log(item)
         setData({ ...data, data: [item, ...items] })
     }
 
