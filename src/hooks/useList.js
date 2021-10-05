@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
+import useFetch from './useFetch'
 
 const useList = () => {
     const [data, setData] = useState({})
+    const { loading:nextLoading, get } = useFetch()
     const [items, setItems] = useState([])
     const [loaded, setLoaded] = useState(false)
     const loadedRef = useRef(false)
@@ -25,8 +27,7 @@ const useList = () => {
     }
 
     const prependItem = (item) => {
-        const currentData = data.data || []
-        setData({ ...data, data: [item, ...currentData] })
+        setData({ ...data, data: [item, ...items] })
     }
 
     const removeItem = (item) => {
@@ -34,28 +35,25 @@ const useList = () => {
         setData({ ...data, data: currentData.filter(it => it.id !== item.id) })
     }
 
-    const MoreBtn = (callback = null) => {
-        return <div className="selectBtnWrapper">
-            {data.prev_page_url &&
-                <button
-                    onClick={() => typeof callback === 'function' && callback(data.prev_page_url)}
+    const loadHandler = (url) => {
+        setLoaded(false)
+        loadItems(() => Promise.resolve(get(url)))
+    }
+    const MoreBtn = () => {
+        return <div>
+            { nextLoading && <span className="loader"></span> }
+            {!nextLoading && data.next_page_url &&
+                <button onClick={() => loadHandler(data.next_page_url)}
                     className="btn btnSm moreBtn"
                     style={{ margin: ".25rem .05rem" }}>
-                    {"<<<Prev"}
-                </button>
-            }
-            {data.next_page_url &&
-                <button onClick={() => typeof callback === 'function' && callback(data.next_page_url)}
-                    className="btn btnSm moreBtn"
-                    style={{ margin: ".25rem .05rem" }}>
-                    {"Next>>"}
+                    {"Load More"}
                 </button>
             }
         </div>
     }
 
     useEffect(() => {
-        if (data.data) {
+        if (typeof data.data === 'object') {
             setItems([...data.data])
         }
     }, [data])

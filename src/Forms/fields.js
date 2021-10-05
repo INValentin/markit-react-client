@@ -44,13 +44,36 @@ const fields = {
     }
 }
 
+const fieldsClone = { ...fields };
 Object.keys(fields).forEach(group => {
+    fieldsClone[group] = { ...fields[group] }
     Object.keys(fields[group]).forEach(prop => {
         const field = fields[group][prop]
         fields[group][prop]['errors'] = field.errors || []
         fields[group][prop]['value'] = field.value || ''
         fields[group][prop]['type'] = field.type || 'text'
+        fieldsClone[group][prop] = { ...fields[group][prop] }
     })
 })
 
-export default {...fields};
+export const getClone = (key) => {
+    const clone = { ...fields[key] };
+    Object.keys(clone).forEach(k => {
+        clone[k] = { ...fields[key][k] };
+    });
+    return clone
+}
+
+export const populateFields = (instance, fields) => {
+    const newFields = { ...fields };
+    Object.keys(newFields).forEach(k => {
+        if (k in instance) {
+            newFields[k].value = instance[k];
+        } else {
+            delete newFields[k];
+        }
+    });
+    return (newFields);
+};
+
+export default fields;
