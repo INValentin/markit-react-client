@@ -28,7 +28,6 @@ const TeacherForm = ({action = 'Create', onDone, teacher}) => {
     }
 
     onDone (result);
-    // success ('Teacher updated!');
   };
 
   useEffect (
