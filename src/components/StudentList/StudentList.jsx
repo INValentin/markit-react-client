@@ -32,27 +32,7 @@ const StudentList = () => {
       <h2 className="studentHeader">Students</h2>
       <button onClick={toggleModal} className="btn">Create Student</button>
       </div>
-      <div className="filterList">
-        <div className="inputWrapper studentFilter">
-          <label htmlFor="stdpt">Select Department</label>
-          <select id="stdpt">
-            <option value="">Computer science</option>
-            <option value="">Pure Mathematics</option>
-            <option value="">Electricity</option>
-            <option value="">Civil Engineering</option>
-          </select>
-        </div>
-        <div className="inputWrapper studentFilter">
-          <label htmlFor="stdpt">Select Module</label>
-          <select id="stdpt">
-            <option value="">Analysis</option>
-            <option value="">Calculus III</option>
-            <option value="">Algorithms</option>
-            <option value="">Cyber security</option>
-          </select>
-        </div>
-      </div>
-
+      
       <div className="studentList">
         {loading && <div className="student">Loading...</div>}
         {students.map(std => <Student student={std} key={std.name} />)}
