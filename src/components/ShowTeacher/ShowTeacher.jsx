@@ -8,6 +8,12 @@ const ShowTeacher = ({teacher, onUpdate, onDelete}) => {
   const {loading, listModules} = useTeacherApi ();
   const [loaded, setLoaded] = useState (false);
 
+  
+  useEffect(() => {
+    const personalData = {tags: [{name: teacher.email}, { name: teacher.phone }]};
+    setDetails(details => ({ ...details, contact: personalData }))
+  }, [teacher])
+
   useEffect (
     () => {
       if (!loaded) {

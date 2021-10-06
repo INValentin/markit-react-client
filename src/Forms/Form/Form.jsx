@@ -1,24 +1,11 @@
 import React from 'react';
 
-import useForm from '../../hooks/useForm';
-import { SelectField, NormalField } from '../Fields/index'
-
+import {SelectField, NormalField} from '../Fields/index';
 
 const Form = ({
-  loading,
-  title = 'Fill the form',      
-  fields: initialFields,
-  submitText = 'Send',
-  onSubmit,
+  fields,
+  setValue,
 }) => {
-  const {msg, data, fields, setValue, reset, errorHandler} = useForm (initialFields);
-
-  function submitHandler (e) {
-    e.preventDefault ();
-    onSubmit && onSubmit (data, {success: reset, failure: errorHandler});
-  }
-
-  
   function renderField (key, field) {
     const mainProps = {field, onChange: v => setValue (key, v)};
 
@@ -27,19 +14,19 @@ const Form = ({
         return <SelectField {...mainProps} />;
       default:
         return <NormalField {...mainProps} />;
-      }
+    }
   }
 
   return (
-    <form>
-      <h2 className="formHeader">{title}</h2>
-      { msg && <h3 style={{margin: '.15rem 0', textAlign: 'center', color: "var(--accent-color-1)"}}>{msg}</h3> }
+    <div className="fieldsWrapper">
       {Object.keys ({...fields}).map (key => {
-        
         return (
-          <div key={key} className={`${Boolean(fields[key].errors.length) ? 'error' : ''} inputWrapper`}>
+          <div
+            key={key}
+            className={`${Boolean (fields[key].errors.length) ? 'error' : ''} inputWrapper`}
+          >
             {renderField (key, fields[key])}
-            {Boolean(fields[key].errors.length) &&
+            {Boolean (fields[key].errors.length) &&
               <div className="errorWrapper">
                 {fields[key].errors.map (err => {
                   return <div key={err} className="error">{err}</div>;
@@ -48,18 +35,8 @@ const Form = ({
           </div>
         );
       })}
-
-      <button
-        disabled={loading ? true : false}
-        onClick={submitHandler}
-        type="submit"
-        className="btn formSubmitBtn"
-      >
-        {!loading ? submitText : '...'}
-      </button>
-    </form>
+    </div>
   );
 };
-
 
 export default Form;
