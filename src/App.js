@@ -4,28 +4,33 @@ import Nav from './components/Nav/Nav'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
 import { Home, Account, View } from './pages'
+import MessageProvider from './Contexts/MessageContext'
+// import Messages from './components/Messages/Messages'
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/home" exact component={() => <Layout><Home /></Layout>} />
-        <Route path="/view" exact component={() => <Layout><View /></Layout>} />
-        <Route path="/account" exact component={() => <Layout><Account /></Layout>} />
-        <Redirect to="/home" />
-      </Switch>
-    </Router>
+    <MessageProvider>
+      {/* <Messages /> */}
+      <Router>
+        <Switch>
+          <Route path="/home" exact component={() => <Layout><Home /></Layout>} />
+          <Route path="/view" exact component={() => <Layout><View /></Layout>} />
+          <Route path="/account" exact component={() => <Layout><Account /></Layout>} />
+          <Redirect to="/home" />
+        </Switch>
+      </Router>
+    </MessageProvider>
   );
 }
 
-function Layout({children}) {
+function Layout({ children }) {
   return (
     <main className="appWrapper">
       <Nav />
       <div className="content">
-      <div className="contentWrapper">
-        {children}
-      </div>
+        <div className="contentWrapper">
+          {children}
+        </div>
       </div>
       <footer>
         <span>&copy;UR - 2021 | ISHIMWE Valentin</span>
