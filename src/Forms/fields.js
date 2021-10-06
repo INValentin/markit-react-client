@@ -14,6 +14,7 @@ const fields = {
     student: {
         name: { label: "Name", type: "text", value: "" },
         email: { label: "E-mail", type: "email", value: "" },
+        phone: { label: "Phone", type: "number" },
         index_number: { label: "Index Number", type: "text", value: "" },
         password: { label: "Password", type: "password", value: "" },
         password_confirmation: { label: "Re-Enter Password", type: "password", value: "" },
@@ -23,6 +24,7 @@ const fields = {
     teacher: {
         name: { label: "Name", type: "text", value: "" },
         email: { label: "E-mail", type: "email", value: "" },
+        phone: { label: "Phone", type: "number" },
         password: { label: "Password", type: "password", value: "" },
         password_confirmation: { label: "Re-Enter Password", type: "password", value: "" },
     },

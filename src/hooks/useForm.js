@@ -33,7 +33,7 @@ const useForm = (modelName) => {
         const newFields = { ...fields };
         Object.keys(newFields).forEach(k => {
             if (k in instance) {
-                newFields[k].value = instance[k];
+                newFields[k].value = instance[k] || "";
             } else {
                 delete newFields[k];
             }

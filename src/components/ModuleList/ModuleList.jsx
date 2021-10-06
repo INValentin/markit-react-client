@@ -10,15 +10,25 @@ import ModelForm from '../../Forms/ModelForm';
 const ModuleList = () => {
   const {show, toggleModal, hideModal} = useModal ();
   const {loading, index} = useModuleApi ();
-  const { loadItems, items:modules, prependItem, MoreBtn } = useList()
-  const [loaded, setLoaded] = useState(false)
+  const {
+    loadItems,
+    items: modules,
+    changeItem,
+    removeItem,
+    prependItem,
+    MoreBtn,
+  } = useList ();
+  const [loaded, setLoaded] = useState (false);
 
-  useEffect(() => {
-    if (!loaded) {
-      loadItems(index)
-      setLoaded(true)
-    }
-  }, [index, loadItems, loaded])
+  useEffect (
+    () => {
+      if (!loaded) {
+        loadItems (index);
+        setLoaded (true);
+      }
+    },
+    [index, loadItems, loaded]
+  );
 
   return (
     <div className="moduleWrapper">
@@ -31,13 +41,22 @@ const ModuleList = () => {
         <button onClick={toggleModal} className="btn">Create Module</button>
       </div>
       <div className="moduleList">
-        {loading && <div className="module">Loading...</div>}
-        {modules.map (mod => <Module module={mod} key={mod.name} />)}
-        {!modules.length && !loading && <div className="module">No modules found.</div>}
+        {loading && <div className="module"><span className="loader" /></div>}
+        {modules.map (mod => (
+          <Module
+            onDelete={removeItem}
+            onUpdate={data => changeItem (mod, data)}
+            module={mod}
+            key={mod.name}
+          />
+        ))}
+        {!modules.length &&
+          !loading &&
+          <div className="module">No modules found.</div>}
       </div>
       <MoreBtn />
     </div>
-  );  
+  );
 };
 
 export default ModuleList;

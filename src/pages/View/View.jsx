@@ -9,11 +9,11 @@ import ModuleList from '../../components/ModuleList/ModuleList';
 
 
 const View = () => {
-    const [viewType, setViewType] = useState('teacher')
+    const [viewType, setViewType] = useState('student')
 
   return (
     <div>
-      <h1 className="viewHeader">View</h1>
+      {/* <h1 className="viewHeader">View</h1> */}
       {/* <span className="loader"></span> */}
       <div className="viewBtnWrapper">
         <button onClick={() => setViewType('department')} className={`${viewType === 'department' ? 'active' : ''} btn viewBtn`}>Departments</button>

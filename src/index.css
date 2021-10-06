@@ -56,7 +56,9 @@ input {
     text-transform: capitalize;
     background-color: var(--dark-color);
     color: var(--light-color);
-    box-shadow: 1.5px 1.5px 5px var(--dark-color-op);
+    text-transform: uppercase;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', sans-serif;
+    box-shadow: inset 1.5px 1.5px 5px var(--light-color-op);
 }
 
 .btn:hover {
@@ -68,7 +70,7 @@ input {
 .btn:hover {
     color: var(--light-color);
     background-color: var(--dark-color-op);
-    box-shadow: -2px -2px 3px var(--dark-color);
+    /* box-shadow: -2px -2px 3px var(--dark-color); */
 }
 
 .btn.btnSm {
@@ -89,6 +91,10 @@ input {
 h1, h2, h3, h4 {
     text-transform: uppercase;
     color: var(--accent-color-1);
+    /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', serif;
+    letter-spacing: 2px;
+    line-height: 1.2;
 }
 h2 {
     font-size: 1.8rem;
@@ -100,15 +106,36 @@ h1 {
 /* loader */
 
 .loader {
+    position: relative;
+    max-width: fit-content;
+    text-align: center;
+    display: inline-block;
+}
+
+.loader::before {
+    content: "";
     height: 20px;
     width: 20px;
     border: 2px solid transparent;
     display: inline-block;
     margin: .25rem;
     border-radius: 50%;
+    border-style: dotted;
     animation: 3s border-spin infinite linear;
     border-color: var(--dark-color) var(--light-color) var(--dark-color) var(--light-color);
     box-shadow: 0 0 2px 1.2px rgba(0, 0, 0, .5);
+}
+
+.loader::after{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    content: "Loading...";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    color: var(--dark-color);
 }
 
 /* lists */

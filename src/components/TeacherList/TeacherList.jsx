@@ -13,7 +13,14 @@ const TeacherList = () => {
   const {loading, index} = useTeacherApi ();
   const [loaded, setLoaded] = useState (false);
 
-  const {loadItems, items: teachers, prependItem, MoreBtn} = useList ();
+  const {
+    loadItems,
+    items: teachers,
+    changeItem,
+    removeItem,
+    prependItem,
+    MoreBtn,
+  } = useList ();
 
   useEffect (
     () => {
@@ -39,9 +46,16 @@ const TeacherList = () => {
       </div>
 
       <div className="teacherList">
-        {loading && <div className="teacher">Loading...</div>}
+        {loading && <div className="teacher"><span className="loader" /></div>}
         {teachers.map (t => {
-          return <Teacher teacher={t} key={t.id} />;
+          return (
+            <Teacher
+              onDelete={removeItem}
+              onUpdate={data => changeItem (t, data)}
+              teacher={t}
+              key={t.id}
+            />
+          );
         })}
       </div>
 

@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useDptApi } from '../../hooks/useApi';
 import DetailList from '../DetailList/DetailList';
 
-const ShowStudent = ({student, onUpdate}) => {
+const ShowStudent = ({student, onUpdate, onDelete}) => {
   const {loading: dptLoading, show: showDpt} = useDptApi ();
-  const [details, setDetails] = useState({})
+  const [details, setDetails] = useState()
   const [dptLoaded, setDptLoaded] = useState (false);
+
+  useEffect(() => {
+    const personalData = {tags: [{name: student.email}, { name: student.phone }]};
+    setDetails(details => ({ ...details, contact: personalData }))
+  }, [student])
 
 
   useEffect (
@@ -31,7 +36,7 @@ const ShowStudent = ({student, onUpdate}) => {
       <div className="actionsWrapper">
         <div className="actionsList">
           <button onClick={() => onUpdate && onUpdate()} className="actionBtn btnSuccess btn">Update</button>
-          <button className="actionBtn btnDanger btn">Delete</button>
+          <button onClick={onDelete} className="actionBtn btnDanger btn">Delete</button>
         </div>
       </div>
     </div>

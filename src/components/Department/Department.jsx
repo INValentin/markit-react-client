@@ -1,10 +1,12 @@
 import React from 'react';
 import ModelForm from '../../Forms/ModelForm';
+import {useDptApi} from '../../hooks/useApi';
 import Modal, {useModal} from '../Modal/Modal';
 import ShowDepartment from '../ShowDepartment/ShowDepartment';
 import './Department.css';
 
-const Department = ({dpt}) => {
+const Department = ({dpt, onDelete, onUpdate}) => {
+  const {loading, destroy} = useDptApi ();
   const {show, toggleModal, hideModal} = useModal ();
   const {
     show: showUpdate,
@@ -17,15 +19,36 @@ const Department = ({dpt}) => {
     showUpdateModal ();
   };
 
+  const deleteHandler = async () => {
+    const res = await destroy (dpt.id);
+    const data = await res.json ();
+    if (res.ok && data) {
+      onDelete (dpt);
+    }
+  };
+
   return (
     <div className="dpt">
-      <Modal onHide={hideModal} show={show}>
-        <ShowDepartment onUpdate={modalShowHandler} department={dpt} />
-      </Modal>
-      <Modal show={showUpdate} onHide={hideUpdateModal}>
-        <ModelForm modelName={'department'} action="Update" instance={dpt} />
-      </Modal>
-      <span onClick={toggleModal} className="dptName">{dpt.name}</span>
+      {!loading
+        ? <React.Fragment>
+            <Modal onHide={hideModal} show={show}>
+              <ShowDepartment
+                onDelete={deleteHandler}
+                onUpdate={modalShowHandler}
+                department={dpt}
+              />
+            </Modal>
+            <Modal show={showUpdate} onHide={hideUpdateModal}>
+              <ModelForm
+                onDone={onUpdate}
+                modelName={'department'}
+                action="Update"
+                instance={dpt}
+              />
+            </Modal>
+            <span onClick={toggleModal} className="dptName">{dpt.name}</span>
+          </React.Fragment>
+        : <span className="loader" />}
     </div>
   );
 };
