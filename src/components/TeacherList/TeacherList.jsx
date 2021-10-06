@@ -32,11 +32,16 @@ const TeacherList = () => {
     [loadItems, index, loaded]
   );
 
+  const createdHandler = newItem => {
+    hideModal ();
+    prependItem (newItem);
+  };
+  
   return (
     <div className="teacherWrapper">
       <Modal onHide={hideModal} show={show}>
         <ModelForm
-          onDone={prependItem}
+          onDone={createdHandler}
           modelName={{fields: 'teacher', label: 'Teacher', api: 'teachers'}}
         />
       </Modal>

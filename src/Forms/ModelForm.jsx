@@ -31,7 +31,9 @@ const ModelForm = ({modelName, onDone, action = 'Create', instance}) => {
       : update (instance.id);
 
     const data = await handler ();
-    onDone && onDone (data);
+    if (!data.errors) {
+      onDone && onDone (data);
+    }
   };
 
   const submitHandler = e => {

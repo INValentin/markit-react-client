@@ -30,10 +30,15 @@ const DepartmentList = () => {
     [index, loadItems, loaded]
   );
 
+  const createdHandler = newItem => {
+    hideModal ();
+    prependItem (newItem);
+  };
+
   return (
     <div className="dptWrapper">
       <Modal show={show} onHide={hideModal}>
-        <ModelForm onDone={prependItem} modelName="department" />
+        <ModelForm onDone={createdHandler} modelName="department" />
       </Modal>
       <div className="dptHeader">
         <h2>Departments</h2>
@@ -43,7 +48,7 @@ const DepartmentList = () => {
         {loading && <div className="dpt"><span className="loader" /></div>}
         {departments.map (dpt => (
           <Department
-            onUpdate={(data) => changeItem(dpt, data)}
+            onUpdate={data => changeItem (dpt, data)}
             onDelete={removeItem}
             dpt={dpt}
             key={dpt.id}

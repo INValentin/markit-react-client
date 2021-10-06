@@ -30,10 +30,15 @@ const ModuleList = () => {
     [index, loadItems, loaded]
   );
 
+  const createdHandler = newItem => {
+    hideModal ();
+    prependItem (newItem);
+  };
+
   return (
     <div className="moduleWrapper">
       <Modal onHide={hideModal} show={show}>
-        <ModelForm onDone={prependItem} modelName="module" />
+        <ModelForm onDone={createdHandler} modelName="module" />
       </Modal>
 
       <div className="moduleHeader">
