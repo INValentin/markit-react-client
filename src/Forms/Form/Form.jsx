@@ -2,10 +2,7 @@ import React from 'react';
 
 import {SelectField, NormalField} from '../Fields/index';
 
-const Form = ({
-  fields,
-  setValue,
-}) => {
+const Form = ({fields, setValue}) => {
   function renderField (key, field) {
     const mainProps = {field, onChange: v => setValue (key, v)};
 
@@ -18,7 +15,8 @@ const Form = ({
   }
 
   return (
-    <div className="fieldsWrapper">
+    <React.Fragment>
+
       {Object.keys ({...fields}).map (key => {
         return (
           <div
@@ -35,7 +33,7 @@ const Form = ({
           </div>
         );
       })}
-    </div>
+    </React.Fragment>
   );
 };
 

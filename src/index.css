@@ -110,6 +110,7 @@ h1 {
     max-width: fit-content;
     text-align: center;
     display: inline-block;
+    /* margin: 1rem; */
 }
 
 .loader::before {

@@ -34,7 +34,14 @@ const fields = {
         student_id: { label: "Student", type: "select", options: "students@index", value: "" },
         formative: { label: "Formative Assessment", type: "number", value: "" },
         summative: { label: "Summative Assessment", type: "number", value: "" },
-        academic_year: { label: "Academic Year", type: "text", value: "" },
+        academic_year: {
+            label: "Academic Year", type: "select", value: "", options: [
+                { label: "2018-2019", value: "2018-2019" },
+                { label: "2019-2020", value: "2019-2020" },
+                { label: "2020-2021", value: "2020-2021" },
+                { label: "2021-2022", value: "2021-2022" },
+            ]
+        },
         semester: {
             label: "Semester", type: "select",
             options: [
@@ -46,20 +53,23 @@ const fields = {
     }
 }
 
-const fieldsClone = { ...fields };
-Object.keys(fields).forEach(group => {
-    fieldsClone[group] = { ...fields[group] }
-    Object.keys(fields[group]).forEach(prop => {
-        const field = fields[group][prop]
-        fields[group][prop]['errors'] = field.errors || []
-        fields[group][prop]['value'] = field.value || ''
-        fields[group][prop]['type'] = field.type || 'text'
-        fieldsClone[group][prop] = { ...fields[group][prop] }
+export const normalizeFields = (fields) => {
+    const fieldsClone = { ...fields };
+    Object.keys(fields).forEach(group => {
+        fieldsClone[group] = { ...fields[group] }
+        Object.keys(fields[group]).forEach(prop => {
+            const field = fields[group][prop]
+            fields[group][prop]['errors'] = field.errors || []
+            fields[group][prop]['value'] = field.value || ''
+            fields[group][prop]['type'] = field.type || 'text'
+            fieldsClone[group][prop] = { ...fields[group][prop] }
+        })
     })
-})
+    return fieldsClone
+}
 
 export const getClone = (key) => {
-    // console.log({key})
+    if (!(key in fields)) return null
     const clone = { ...fields[key] };
     Object.keys(clone).forEach(k => {
         clone[k] = { ...fields[key][k] };
@@ -67,4 +77,4 @@ export const getClone = (key) => {
     return clone
 }
 
-export default fields;
+export default normalizeFields(fields);

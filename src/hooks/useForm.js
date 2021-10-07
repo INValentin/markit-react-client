@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import { getClone } from '../Forms/fields';
 import useApi from './useApi';
 
-const useForm = (modelName) => {
+const useForm = (modelName={}, intialFields={}) => {
     const [data, setData] = useState({})
     const [msg, setMsg] = useState('')
-    const [fields, setFields] = useState(getClone(modelName.fields));
-    const { loading, store, update: apiUpdate } = useApi(modelName.api)
+    const [fields, setFields] = useState(getClone(modelName?.fields||'')||intialFields);
+    const { loading, store, update: apiUpdate } = useApi(modelName?.api||'')
 
     const setValue = (key, value) => {
         setFields({ ...fields, [key]: { ...fields[key], value } })
@@ -22,7 +22,9 @@ const useForm = (modelName) => {
     }
 
     const create = async () => {
-        return send(store)
+        const data = await send(store)
+        reset()
+        return Promise.resolve(data)
     }
 
     const update = (id) => {

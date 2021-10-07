@@ -38,11 +38,12 @@ const StudentMarks = ({student}) => {
   );
 };
 
-export const StudentMarkTable = ({children}) => {
+export const StudentMarkTable = ({children, headers}) => {
   return (
     <table className="markTable">
       <thead>
         <tr>
+          { headers }
           <th>Module Code</th>
           <th>Module Name</th>
           <th>Semester</th>
@@ -59,7 +60,7 @@ export const StudentMarkTable = ({children}) => {
   );
 };
 
-export const StudentMark = ({student, mark}) => {
+export const StudentMark = ({student, mark, Data}) => {
   const [module, setModule] = useState ({});
   const [loaded, setLoaded] = useState (false);
   const {loading, show} = useModuleApi ();
@@ -80,6 +81,7 @@ export const StudentMark = ({student, mark}) => {
   return loading
     ? <tr className="loader" />
     : <tr>
+        {Data}
         <td>{module.code}</td>
         <td>{module.name}</td>
         <td>{mark.semester || 0}</td>

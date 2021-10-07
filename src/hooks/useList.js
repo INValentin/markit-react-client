@@ -70,7 +70,7 @@ const useList = () => {
 
 
     return {
-        loaded, data, items, loadItems, prependItem, appendItem, changeItem, removeItem, MoreBtn, setData
+        loaded, data, setItems, items, loadItems, prependItem, appendItem, changeItem, removeItem, MoreBtn, setData
     }
 }
 
