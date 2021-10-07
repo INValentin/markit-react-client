@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 import { Home, Account, View } from './pages'
 import MessageProvider from './Contexts/MessageContext'
+import Login from './pages/Auth/Login'
+import Register from './pages/Auth/Register'
 // import Messages from './components/Messages/Messages'
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
         <Switch>
           <Route path="/home" exact component={() => <Layout><Home /></Layout>} />
           <Route path="/view" exact component={() => <Layout><View /></Layout>} />
+          <Route path="/Login" exact component={() => <Layout><Login /></Layout>} />
+          <Route path="/register" exact component={() => <Layout><Register /></Layout>} />
           <Route path="/account" exact component={() => <Layout><Account /></Layout>} />
           <Redirect to="/home" />
         </Switch>

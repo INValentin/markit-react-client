@@ -1,0 +1,16 @@
+/* .authWrapper {
+
+} */
+
+.authHeader {
+    text-align: center;
+
+}
+
+.authForm {
+    margin: 0 auto;
+}
+
+.authForm .inputWrapper:last-of-type {
+    margin-bottom: 1rem;
+}

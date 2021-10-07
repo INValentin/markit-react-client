@@ -50,6 +50,26 @@ const fields = {
             ],
             value: ""
         }
+    },
+    login: {
+        email: { label: "E-mail", type: "email" },
+        password: { label: "Password", type: "password" },
+        user_type: {
+            label: "Account Type", type: "select", options: [
+                { label: "Admin", value: "admin" },
+                { label: "Teacher", value: "teacher" },
+                { label: "Student", value: "student" }
+            ],
+            value: 'admin'
+        },
+        remember_me: { label: "Remember-me", type: "checkbox" }
+
+    },
+    register: {
+        name: { label: "Name", type: "text" },
+        email: { label: "E-mail", type: "email" },
+        password: { label: "Password", type: "password" },
+        password_confirmation: { label: "Re-enter Password", type: "password" }
     }
 }
 

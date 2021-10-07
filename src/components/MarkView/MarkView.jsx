@@ -13,7 +13,7 @@ const MarkView = () => {
   const [loaded, setLoaded] = useState (false);
   const {loading, get} = useFetch ();
   const {url: marksUrl} = useMarksApi ();
-  const {loadItems, data, setItems, items: marks} = useList ();
+  const {loadItems, setItems, items: marks} = useList ();
   const {data: filters, setValue, fields} = useForm ('', getFilterFields ());
   const [canLoad, setCanLoad] = useState (false);
 

@@ -63,7 +63,7 @@ const SelectField = ({field: f, onChange}) => {
               </button>}
           </React.Fragment>}
       </div>
-      <select defaultValue="" onChange={e => onChange (e.target.value)}>
+      <select value={f.value} onChange={e => onChange (e.target.value)}>
         <option value="">...</option>
         {options.map (option => (
           <option

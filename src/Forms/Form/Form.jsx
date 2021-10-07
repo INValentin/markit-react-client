@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {SelectField, NormalField} from '../Fields/index';
+import {SelectField, NormalField, CheckField} from '../Fields/index';
 
 const Form = ({fields, setValue}) => {
   function renderField (key, field) {
@@ -9,6 +9,8 @@ const Form = ({fields, setValue}) => {
     switch (field.type) {
       case 'select':
         return <SelectField {...mainProps} />;
+      case 'checkbox':
+        return <CheckField {...mainProps} />;
       default:
         return <NormalField {...mainProps} />;
     }
@@ -21,7 +23,7 @@ const Form = ({fields, setValue}) => {
         return (
           <div
             key={key}
-            className={`${Boolean (fields[key].errors.length) ? 'error' : ''} inputWrapper`}
+            className={`${Boolean (fields[key].errors.length) ? 'error' : ''} ${fields[key]['type']} inputWrapper`}
           >
             {renderField (key, fields[key])}
             {Boolean (fields[key].errors.length) &&
