@@ -1,4 +1,4 @@
-import {} from 'react'
+import { } from 'react'
 import useFetch from './useFetch'
 
 export const BASE_URL = 'http://localhost:8000/api'
@@ -9,7 +9,7 @@ const useApi = (resource, custom = {}) => {
     const { loading, get, post, put, del } = useFetch()
 
     const url = (URL) => BASE_URL + `/${typeof resource === "function" ? resource() : resource}` + URL;
-    
+
     return {
         loading,
         url,
@@ -20,11 +20,11 @@ const useApi = (resource, custom = {}) => {
         show(id) {
             return get(url(`/${id}`))
         },
-        
+
         store(body) {
             return post(url(`/`), { body })
         },
-        
+
         update(id, body) {
             return put(url(`/${id}`), { body })
         },
@@ -37,11 +37,28 @@ const useApi = (resource, custom = {}) => {
 
 }
 
+
+export const useAuthApi = () => {
+    const { loading, get, post } = useFetch()
+    return {
+        loading,
+        login(body) {
+            return post(BASE_URL + '/auth/login', { body })
+        },
+        logout() {
+            return post(BASE_URL + '/auth/logout')
+        },
+        currentUser() {
+            return get(BASE_URL + '/auth/user')
+        }
+    }
+}
+
 export const useDptApi = () => {
     const { loading, get } = useFetch()
     const endpoints = useApi('departments')
 
-    return { 
+    return {
         ...endpoints,
         loading: loading || endpoints.loading,
         listModules(id) {
@@ -73,7 +90,7 @@ export const useTeacherApi = () => {
     const { loading, get } = useFetch()
     const endpoints = useApi('teachers')
 
-    return { 
+    return {
         ...endpoints,
         loading: loading || endpoints.loading,
         listModules(id) {
@@ -102,7 +119,7 @@ export const useModuleApi = () => {
 export const useMarksApi = () => {
 
     const endpoints = useApi('marks')
-    
+
     return { ...endpoints }
 
 }

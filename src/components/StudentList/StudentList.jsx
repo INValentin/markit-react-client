@@ -53,7 +53,7 @@ const StudentList = () => {
             onUpdate={data => changeItem (std, data)}
             onDelete={removeItem}
             student={std}
-            key={std.name}
+            key={std.id}
           />
         ))}
       </div>

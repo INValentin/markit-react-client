@@ -93,6 +93,7 @@ const useForm = (modelName={}, intialFields={}) => {
         populateFields,
         reset,
         setValue,
+        setMsg,
         errorHandler
     }
 }

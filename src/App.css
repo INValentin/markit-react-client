@@ -29,3 +29,30 @@ footer span {
     display: inline-block;
     font-weight: lighter;
 }
+
+.loginLoader {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.loginLoader>.loader::before{
+    height: 45px;
+    width: 45px;
+    border-width: 6px;
+    border-style: dashed;
+}
+
+.formMsg {
+    text-align: center;
+    color: var(--accent-color-2);
+    font-size: medium;
+    margin: 0.25rem 0 1rem;
+}
