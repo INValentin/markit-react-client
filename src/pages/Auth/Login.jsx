@@ -5,6 +5,7 @@ import Form from '../../Forms/Form/Form';
 import useForm from '../../hooks/useForm';
 import {useAuthApi} from '../../hooks/useApi';
 import {useUserUpdate} from '../../Contexts/AuthContext';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
   const {loading, login} = useAuthApi ();
@@ -17,6 +18,7 @@ const Login = () => {
     errorHandler,
     reset,
   } = useForm ('', getClone ('login'));
+  const { saveToken } = useToken()
   const updateUser = useUserUpdate ();
 
   const submitHandler = async e => {
@@ -26,6 +28,7 @@ const Login = () => {
     if (res.ok) {
       msg && setMsg('')
       updateUser (data.user);
+      saveToken(data.token)
       reset ();
     } else {
       setMsg(data?.message||'')

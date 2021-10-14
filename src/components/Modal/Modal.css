@@ -1,7 +1,7 @@
 .modalWrapper {
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, .5);
+    background-image: linear-gradient(to bottom right, var(--dark-color), rgba(0, 0, 0, .3), var(--dark-color-op));
     min-height: 100vh;
     width: 100%;
     transition: .3s;

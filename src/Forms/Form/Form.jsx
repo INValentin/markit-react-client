@@ -2,9 +2,9 @@ import React from 'react';
 
 import {SelectField, NormalField, CheckField} from '../Fields/index';
 
-const Form = ({fields, setValue}) => {
+const Form = ({fields, setError, setAttr, setValue}) => {
   function renderField (key, field) {
-    const mainProps = {field, onChange: v => setValue (key, v)};
+    const mainProps = {field, setError, setAttr, fields, onChange: v => setValue (key, v)};
 
     switch (field.type) {
       case 'select':

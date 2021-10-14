@@ -1,182 +1,196 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 :root {
-    --light-color: #f7f4ef;
-    --light-color-op: #f7f4ef80;
-    --dark-color: #342628;
-    --dark-color-op: #34262880;
-    --accent-color-1: #788402;
-    --accent-color-2: #feaa00;
-    --accent-color-1-op: #78840280;
-    --accent-color-2-op: #fea90080;
+  --light-color: #f7f4ef;
+  --light-color-op: #f7f4ef80;
+  --dark-color: #342628;
+  --dark-color-op: #34262880;
+  --accent-color-1: #788402;
+  --accent-color-2: #feaa00;
+  --accent-color-1-op: #78840280;
+  --accent-color-2-op: #fea90080;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: var(--dark-color);
+  margin: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: var(--dark-color);
 }
 
 main:first-of-type {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-
 li {
-    list-style: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
-    color: var(--accent-color-2);
-    font-weight: bold;
+  text-decoration: none;
+  color: var(--accent-color-2);
+  font-weight: bold;
 }
 
 a,
 button,
 input {
-    transition: .3s;
+  transition: 0.3s;
 }
 
 /* utils */
 
 .btn {
-    padding: .75rem 1rem;
-    border-radius: .75rem;
-    margin: .15rem;
-    border: 0;
-    font-weight: 500;
-    font-size: large;
-    cursor: pointer;
-    text-transform: capitalize;
-    background-color: var(--dark-color);
-    color: var(--light-color);
-    text-transform: uppercase;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', sans-serif;
-    box-shadow: inset 1.5px 1.5px 5px var(--light-color-op);
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  margin: 0.15rem;
+  border: 0;
+  font-weight: 500;
+  font-size: large;
+  cursor: pointer;
+  text-transform: capitalize;
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  text-transform: uppercase;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", sans-serif;
+  box-shadow: inset 1.5px 1.5px 5px var(--light-color-op);
 }
 
 .btn:hover {
-    transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .btn.active,
 .btn:focus,
 .btn:hover {
-    color: var(--light-color);
-    background-color: var(--dark-color-op);
-    /* box-shadow: -2px -2px 3px var(--dark-color); */
+  color: var(--light-color);
+  background-color: var(--dark-color-op);
+  /* box-shadow: -2px -2px 3px var(--dark-color); */
 }
 
 .btn.btnSm {
-    padding: .35rem .75rem;
-    font-size: small;
-    border-radius: .5rem;
+  padding: 0.35rem 0.75rem;
+  font-size: small;
+  border-radius: 0.5rem;
 }
 
 .btnSuccess {
-    background-color: var(--accent-color-1);
+  background-color: var(--accent-color-1);
 }
 
 .btnDanger {
-    background-color: tomato;
+  background-color: tomato;
 }
 
 /* headers */
-h1, h2, h3, h4 {
-    text-transform: uppercase;
-    color: var(--accent-color-1);
-    /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', serif;
-    letter-spacing: 2px;
-    line-height: 1.2;
+h1,
+h2,
+h3,
+h4 {
+  text-transform: uppercase;
+  color: var(--accent-color-1);
+  /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", serif;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  text-shadow: 2px 2px 10px var(--dark-color-op);
 }
 h2 {
-    font-size: 1.8rem;
+  font-size: 1.8rem;
 }
 h1 {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 /* loader */
 
 .loader {
-    position: relative;
-    max-width: fit-content;
-    text-align: center;
-    display: inline-block;
-    /* margin: 1rem; */
+  position: relative;
+  max-width: fit-content;
+  text-align: center;
+  display: inline-block;
+  /* margin: 1rem; */
 }
 
 .loader::before {
-    content: "";
-    height: 20px;
-    width: 20px;
-    border: 2px solid transparent;
-    display: inline-block;
-    margin: .25rem;
-    border-radius: 50%;
-    border-style: dotted;
-    animation: 3s border-spin infinite linear;
-    border-color: var(--dark-color) var(--light-color) var(--dark-color) var(--light-color);
-    box-shadow: 0 0 2px 1.2px rgba(0, 0, 0, .5);
+  content: "";
+  height: 20px;
+  width: 20px;
+  border: 2px solid transparent;
+  display: inline-block;
+  margin: 0.25rem;
+  border-radius: 50%;
+  border-style: dotted;
+  animation: 3s border-spin infinite linear;
+  border-color: var(--dark-color) var(--light-color) var(--dark-color)
+    var(--light-color);
+  box-shadow: 0 0 2px 1.2px rgba(0, 0, 0, 0.5);
 }
 
-.loader::after{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-60%);
-    content: "Loading...";
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    color: var(--dark-color);
+.loader::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-60%);
+  content: "Loading...";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  color: var(--dark-color);
 }
 
 /* lists */
 div:is(.teacherList, .studentList, .dptList, .moduleList) {
-    background-color: unset!important;
-    box-shadow: auto;
+  background-color: unset !important;
+  box-shadow: auto;
 }
 
 div:is(.teacherList, .studentList, .dptList, .moduleList) > div {
-    background-color: unset;
-    box-shadow: inset -1px 2px 10px 1px rgba(0, 0, 0, .5);
-    margin: 0.25rem 0;
-    border-radius: .75rem;
-    padding: 0.5rem 1rem;
-    justify-content: space-between;
+  background-color: unset;
+  box-shadow: inset -1px 2px 10px 1px rgba(0, 0, 0, 0.5);
+  margin: 0.25rem 0;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  justify-content: space-between;
 }
 
-div:is(.teacherList, .studentList, .dptList, .moduleList) > div > span{
-    flex: 1;
-    padding: .5rem .75rem;
-    display: block!important;
-    font-weight: 500;
+div:is(.teacherList, .studentList, .dptList, .moduleList) > div > span {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  display: block !important;
+  font-weight: 500;
 }
 
 div:is(.teacherList, .studentList, .dptList, .moduleList) > div:hover {
-    color: unset;
-    background-color: var(--accent-color-1-op);
+  color: unset;
+  background-color: var(--accent-color-1-op);
+}
+
+/* hidden inside modal */
+.modalWrapper > .hideWrapper {
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  max-width: fit-content;
 }
 
 @keyframes border-spin {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    50% {
-        transform: rotate(90%);
-        border-color: var(  --light-color) var(--dark-color) var(--light-color) var(--dark-color);
-    }
-    
-    100% {
-        transform: rotate(360deg);
-    }
+  50% {
+    transform: rotate(90%);
+    border-color: var(--light-color) var(--dark-color) var(--light-color)
+      var(--dark-color);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

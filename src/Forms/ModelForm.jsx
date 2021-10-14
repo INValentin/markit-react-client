@@ -10,7 +10,7 @@ const ModelForm = ({modelName, onDone, action = 'Create', instance}) => {
       api: modelName.toLowerCase () + 's',
     };
   }
-  const {setValue, loading, fields, create, update, populateFields} = useForm (
+  const {setValue, setError, setAttr, loading, fields, create, update, populateFields} = useForm (
     modelName
   );
   const [populated, setPopulated] = useState (false);
@@ -44,7 +44,7 @@ const ModelForm = ({modelName, onDone, action = 'Create', instance}) => {
   return (
     <form>
       <h2 className="formHeader">{modelName.label}</h2>
-      <Form setValue={setValue} fields={fields} />
+      <Form setAttr={setAttr} setError={setError} setValue={setValue} fields={fields} />
       <button className="btn formSubmitBtn" onClick={submitHandler}>
         {!loading ? `${action} ${modelName.label}` : '...'}
       </button>

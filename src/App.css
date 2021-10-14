@@ -40,14 +40,12 @@ footer span {
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: .8rem;
 }
 
-.loginLoader>.loader::before{
-    height: 45px;
-    width: 45px;
-    border-width: 6px;
-    border-style: dashed;
+.loginLoader>.loader::after{
+    color: var(--dark-color);
+    content: "Authenticating.." !important;
 }
 
 .formMsg {

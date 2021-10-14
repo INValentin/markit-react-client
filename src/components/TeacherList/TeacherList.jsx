@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import './TeacherList.css';
+import React, { useEffect, useState } from "react";
+import "./TeacherList.css";
 
-import Modal, {useModal} from '../Modal/Modal';
+import Modal, { useModal } from "../Modal/Modal";
 // import {TeacherForm} from '../../Forms';
-import Teacher from '../Teacher/Teacher';
-import {useTeacherApi} from '../../hooks/useApi';
-import useList from '../../hooks/useList';
-import ModelForm from '../../Forms/ModelForm';
+import Teacher from "../Teacher/Teacher";
+import { useTeacherApi } from "../../hooks/useApi";
+import useList from "../../hooks/useList";
+import ModelForm from "../../Forms/ModelForm";
+import AuthAdmin from "../AuthAdmin/AuthAdmin";
 
 const TeacherList = () => {
-  const {show, toggleModal, hideModal} = useModal ();
-  const {loading, index} = useTeacherApi ();
-  const [loaded, setLoaded] = useState (false);
+  const { show, toggleModal, hideModal } = useModal();
+  const { loading, index } = useTeacherApi();
+  const [loaded, setLoaded] = useState(false);
 
   const {
     loadItems,
@@ -20,43 +21,51 @@ const TeacherList = () => {
     removeItem,
     prependItem,
     MoreBtn,
-  } = useList ();
+  } = useList();
 
-  useEffect (
-    () => {
-      if (!loaded) {
-        loadItems (index);
-        setLoaded (true);
-      }
-    },
-    [loadItems, index, loaded]
-  );
+  useEffect(() => {
+    if (!loaded) {
+      loadItems(index);
+      setLoaded(true);
+    }
+  }, [loadItems, index, loaded]);
 
-  const createdHandler = newItem => {
-    hideModal ();
-    prependItem (newItem);
+  const createdHandler = (newItem) => {
+    hideModal();
+    prependItem(newItem);
   };
-  
+
   return (
     <div className="teacherWrapper">
-      <Modal onHide={hideModal} show={show}>
-        <ModelForm
-          onDone={createdHandler}
-          modelName={{fields: 'teacher', label: 'Teacher', api: 'teachers'}}
-        />
-      </Modal>
+      <AuthAdmin>
+        <Modal onHide={hideModal} show={show}>
+          <ModelForm
+            onDone={createdHandler}
+            modelName={{ fields: "teacher", label: "Teacher", api: "teachers" }}
+          />
+        </Modal>
+      </AuthAdmin>
       <div className="teacherHeader">
         <h2>Teachers</h2>
-        <button onClick={toggleModal} className="btn">Create Teacher</button>
+        <AuthAdmin>
+          <button onClick={toggleModal} className="btn">
+            Create Teacher
+          </button>
+        </AuthAdmin>
       </div>
 
       <div className="teacherList">
-        {loading && <div className="teacher"><span className="loader" /></div>}
-        {teachers.map (t => {
+        {loading && (
+          <div className="teacher">
+            <span className="loader" />
+          </div>
+        )}
+        {!loading && !teachers.length && <p>No teachers found</p>}
+        {teachers.map((t) => {
           return (
             <Teacher
               onDelete={removeItem}
-              onUpdate={data => changeItem (t, data)}
+              onUpdate={(data) => changeItem(t, data)}
               teacher={t}
               key={t.id}
             />

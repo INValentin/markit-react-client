@@ -1,102 +1,106 @@
 form {
-    display: flex;
-    width: 350px;
-    flex-direction: column;
-    padding: 1rem;
-    background-color: rgba(255, 255, 255, 0.821);
-    border-radius: 1rem;
-    backdrop-filter: blur(3px);
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, .3);
+  display: flex;
+  width: 350px;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.821);
+  border-radius: 1rem;
+  backdrop-filter: blur(3px);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 form :is(h1, h2, h3) {
-    color: var(--dark-color);
+  color: var(--dark-color);
 }
 
 .inputWrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-.inputWrapper>label {
-    color: var(--dark-color);
-    text-transform: uppercase;
-    font-weight: bold;
-    text-shadow: 1px 1.5px 2px var(--light-color-op);
-    margin-bottom: 5px;
+.inputWrapper > label {
+  color: var(--dark-color);
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 1px 1.5px 2px var(--light-color-op);
+  margin-bottom: 5px;
 }
 
 .inputWrapper :is(input:not([type="checkbox"]), select, textarea) {
-    width: 100%;
-    padding: .75rem 1rem;
-    border: 0;
-    margin: .25rem 0;
-    border-radius: .5rem;
-    background-color: var(--light-color);
-    outline: none;
-    font-size: 16px;
-    color: var(--dark-color);
-    box-shadow: 1px 1px 2px 2px var(--dark-color-op);
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 0;
+  margin: 0.25rem 0;
+  border-radius: 0.5rem;
+  background-color: var(--light-color);
+  outline: none;
+  font-size: 16px;
+  color: var(--dark-color);
+  box-shadow: 1px 1px 2px 2px var(--dark-color-op);
 }
 
 .inputWrapper.error :is(input, select, textarea) {
-    border: 2px solid red;
+  border: 2px solid red;
 }
 
 .formSubmitBtn {
-    padding: .75rem 1.15rem;
-    margin-top: .75rem;
-    text-transform: capitalize;
+  padding: 0.75rem 1.15rem;
+  margin-top: 0.75rem;
+  text-transform: capitalize;
 }
 
 .formHeader {
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 2rem;
-    margin-top: .15rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2rem;
+  margin: 0.15rem 0 0.25rem;
 }
 
 .errorWrapper {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    margin-top: 0.05rem;
-    margin-bottom: 0.05rem;
-    padding-left: 0.05rem;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 0.05rem;
+  margin-bottom: 0.05rem;
+  padding-left: 0.05rem;
 }
 
 .errorWrapper .error {
-    color: red;
-    text-shadow: 1px 1px 2px var(--light-color-op);
+  color: red;
+  text-shadow: 1px 1px 2px var(--light-color-op);
 }
 
 .selectBtnWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .selectBtnWrapper button.prevBtn {
-    justify-self: flex-start;
-    margin-right: auto;
+  justify-self: flex-start;
+  margin-right: auto;
 }
 
 .selectBtnWrapper button.nextBtn {
-    justify-self: flex-end;
-    margin-left: auto;
+  justify-self: flex-end;
+  margin-left: auto;
 }
 
-.inputWrapper input[type='checkbox'] {
-    display: inline-block;
+.inputWrapper input[type="checkbox"] {
+  display: inline-block;
 }
 
 .inputWrapper.checkbox {
-    flex-direction: row;
-    column-gap: 10px;
-    margin: 0.25rem;
+  flex-direction: row;
+  column-gap: 10px;
+  margin: 0.25rem;
 }
 
 .inputWrapper.checkbox label {
-    cursor: pointer !important;
+  cursor: pointer !important;
+}
+
+.formMsg {
+  margin: 0.25rem 0 0.5rem;
 }

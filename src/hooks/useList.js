@@ -12,9 +12,9 @@ const useList = () => {
         const res = await callback()
         const data = await res.json()
 
-        if (!res.ok) {
-            throw new Error(data)
-        }
+        // if (!res.ok) {
+        //     throw new Error(data)
+        // }
 
         setData(data)
         setLoaded(true)

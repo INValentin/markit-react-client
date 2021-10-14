@@ -1,71 +1,135 @@
-import React, {useEffect, useState} from 'react';
-import useApi from '../../hooks/useApi';
-import useFetch from '../../hooks/useFetch';
-import useList from '../../hooks/useList';
+import React, { useCallback, useEffect, useState } from "react";
+import Hide from "../../components/Hide/Hide";
+import { chooseAPI } from "../../hooks/useApi";
+import useFetch from "../../hooks/useFetch";
+import useList from "../../hooks/useList";
 
-const SelectField = ({field: f, onChange}) => {
-  const {loading, get} = useFetch ();
-  const [loaded, setLoaded] = useState (false);
-  const {loadItems, data, items, setData} = useList ();
-  const [options, setOptions] = useState ([]);
-  const api = useApi (
-    () => (typeof f.options === 'string' ? f.options.split ('@')[0] : '')
-  );
+const SelectField = ({ fields, setAttr, field: f, onChange }) => {
+  const apiName = typeof f.options === "string" ? f.options.split("@")[0] : "";
+  const { loading, get } = useFetch();
+  const [loaded, setLoaded] = useState(false);
+  const { loadItems, data, setItems, items, setData } = useList();
+  const [options, setOptions] = useState([]);
+  const api = chooseAPI(apiName);
+  // const [lastForeignValue, setLastForeignValue] = useState('')
 
-  useEffect(() => { 
-    setOptions([...items])
-  }, [items])
+  useEffect(() => {
+    if (typeof f.options === "object") {
+      setOptions(f.options);
+    } else {
+      setOptions([...items]);
+    }
+  }, [items, f]);
 
-  useEffect (
-    () => {
-      if (!loaded) {
-        if (typeof f.options === 'string') {
-          const apiMethod = f.options.split ('@')[1];
-          loadItems (api[apiMethod]);
-        } else {
-          setOptions (f.options);
+  useEffect(() => {
+    setItems(data.data || []);
+  }, [data, setItems]);
+
+  const clickHandler = useCallback(() => {
+    if (!loaded && apiName && api) {
+      if (typeof f.options === "string") {
+        const [, apiMethod, apiArgs] = f.options.split("@");
+        // console.log(api[apiMethod]);
+        let argKeys = apiArgs ? apiArgs.split(",") : [];
+        let argValues = argKeys.map((key) => {
+          const value = fields[key]["value"];
+
+          const error = `Please enter ${key} first`;
+          const fieldKey = Object.keys(fields).find(
+            (k) => fields[k].label === f.label
+          );
+
+          if (value === "" && !f.errors.some((er) => er === error)) {
+            setAttr(fieldKey, "errors", [...f.errors, error]);
+          }
+
+          if (value !== "" && f.errors.includes(error)) {
+            setAttr(
+              fieldKey,
+              "errors",
+              f.errors.filter((er) => er !== error)
+            );
+          }
+
+          return value;
+        });
+        if (argValues.some((value) => value === "")) {
+          return undefined;
         }
-        setLoaded (true);
-      }
-    },
-    [loaded, api, f, loadItems]
-  );
 
-  async function navHandler (prev = false) {
+        loadItems(() => api[apiMethod](...argValues));
+      } else {
+        setOptions(f.options);
+      }
+      setLoaded(true);
+    }
+  }, [loaded, fields, api, apiName, f, setAttr, loadItems]);
+
+  const refresh = () => {
+    setLoaded(false);
+    clickHandler();
+  };
+
+  async function navHandler(prev = false) {
     const url = prev ? data.prev_page_url : data.next_page_url;
-    const res = await get (url);
-    const newData = await res.json ();
-    setData (newData);
+    const res = await get(url);
+    const newData = await res.json();
+    setData(newData);
   }
+
+  // const clickHandler = () => {
+
+  // }
 
   return (
     <React.Fragment>
       <label>Select {f.label}</label>
       <div className="selectBtnWrapper">
-        {(api.loading || loading) && <span className="loader" />}
-        {!loading &&
+        {
+          <Hide show={api.loading || loading}>
+            {" "}
+            <span className="loader" />
+          </Hide>
+        }
+        {!loading && (
           <React.Fragment>
-            {data.prev_page_url &&
+            {data.prev_page_url && (
               <button
                 type="button"
-                onClick={() => navHandler (true)}
+                onClick={() => navHandler(true)}
                 className="btn btnSm prevBtn"
               >
-                {'<< prev'}
-              </button>}
-            {data.next_page_url &&
+                {"<< prev"}
+              </button>
+            )}
+            {loaded && (
               <button
                 type="button"
-                onClick={() => navHandler (false)}
+                onClick={refresh}
+                className="btn btnSm refeshBtn"
+              >
+                Refresh
+              </button>
+            )}
+            {data.next_page_url && (
+              <button
+                type="button"
+                onClick={() => navHandler(false)}
                 className="btn btnSm nextBtn"
               >
-                {'next >>'}
-              </button>}
-          </React.Fragment>}
+                {"next >>"}
+              </button>
+            )}
+          </React.Fragment>
+        )}
       </div>
-      <select value={f.value} onChange={e => onChange (e.target.value)}>
+      <select
+        onClick={clickHandler}
+        value={f.value}
+        onChange={(e) => onChange(e.target.value)}
+      >
         <option value="">...</option>
-        {options.map (option => (
+        {options.map((option) => (
           <option
             // selected={}
             key={option.label || option.id}

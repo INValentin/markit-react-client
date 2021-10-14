@@ -1,101 +1,119 @@
-import { useState, useEffect } from 'react'
-import { getClone } from '../Forms/fields';
-import useApi from './useApi';
+import { useState, useEffect } from "react";
+import { getClone } from "../Forms/fields";
+import useApi from "./useApi";
 
-const useForm = (modelName={}, intialFields={}) => {
-    const [data, setData] = useState({})
-    const [msg, setMsg] = useState('')
-    const [fields, setFields] = useState(getClone(modelName?.fields||'')||intialFields);
-    const { loading, store, update: apiUpdate } = useApi(modelName?.api||'')
+const useForm = (modelName = {}, intialFields = {}) => {
+  const [data, setData] = useState({});
+  const [msg, setMsg] = useState("");
+  const [fields, setFields] = useState(
+    getClone(modelName?.fields || "") || intialFields
+  );
+  const { loading, store, update: apiUpdate } = useApi(modelName?.api || "");
 
-    const setValue = (key, value) => {
-        setFields({ ...fields, [key]: { ...fields[key], value } })
+  const setValue = (key, value) => {
+    setFields({ ...fields, [key]: { ...fields[key], value } });
+  };
+
+  const send = async (callback, canReset = true) => {
+    const res = await callback(JSON.stringify(data));
+    const apiData = await res.json();
+    if (!res.ok) {
+      errorHandler(apiData);
+    } else {
+      setMsg(data.message || "Operation Successful!");
+      if (canReset) {
+        reset();
+      }
     }
+    return Promise.resolve(apiData);
+  };
 
-    const send = async (callback) => {
-        const res = await callback(JSON.stringify(data))
-        const apiData = await res.json()
-        if (!res.ok) {
-            errorHandler(apiData)
-        }
-        return Promise.resolve(apiData)
+  const create = async () => {
+    const data = await send(store);
+    return Promise.resolve(data);
+  };
+
+  const setError = (key, error) => {
+    console.log(fields[key]);
+    setFields({
+      ...fields,
+      [key]: { ...fields[key], errors: [...fields[key].errors].push(error) },
+    });
+  };
+
+  const update = (id) => {
+    return async () => send((data) => apiUpdate(id, data));
+  };
+
+  const populateFields = (instance) => {
+    const newFields = { ...fields };
+    Object.keys(newFields).forEach((k) => {
+      if (k in instance) {
+        newFields[k].value = instance[k] || "";
+      } else {
+        delete newFields[k];
+      }
+    });
+    setFields(newFields);
+  };
+
+  const reset = () => {
+    const newFields = { ...fields };
+
+    Object.keys(newFields).forEach((key) => {
+      newFields[key].errors = [];
+      newFields[key].value = "";
+    });
+
+    setFields(newFields);
+  };
+
+  const setAttr = (key, attr, value) => {
+    setFields({ ...fields, [key]: { ...fields[key], [attr]: value } });
+  };
+
+  function errorHandler(data) {
+    if (data.message) setMsg(data.message);
+    const newFields = { ...fields };
+
+    if (data.errors) {
+      Object.keys(newFields).forEach((k) => {
+        newFields[k].errors = data.errors[k] || [];
+      });
     }
+    setFields(newFields);
+  }
 
-    const create = async () => {
-        const data = await send(store)
-        reset()
-        return Promise.resolve(data)
-    }
+  useEffect(() => {
+    const newData = {};
 
-    const update = (id) => {
-        return async () => send(data => apiUpdate(id, data))
-    }
+    Object.keys(fields).forEach((k) => {
+      newData[k] = fields[k].value;
+    });
 
-    const populateFields = (instance) => {
-        const newFields = { ...fields };
-        Object.keys(newFields).forEach(k => {
-            if (k in instance) {
-                newFields[k].value = instance[k] || "";
-            } else {
-                delete newFields[k];
-            }
-        });
-        setFields(newFields);
-    };
+    setData(newData);
+  }, [fields]);
 
-    const reset = () => {
-        const newFields = { ...fields }
+  // useEffect(() => {
+  //     setFields({ ...initialFields })
+  // }, [initialFields])
 
-        Object.keys(newFields).forEach(key => {
-            newFields[key].errors = []
-            newFields[key].value = ""
-        })
+  return {
+    msg,
+    data,
+    fields,
+    loading,
+    send,
+    create,
+    update,
+    populateFields,
+    reset,
+    setValue,
+    setError,
+    setMsg,
+    errorHandler,
+    setAttr,
+  };
+};
 
-        setFields(newFields)
-    }
-
-    function errorHandler(data) {
-        if (data.message) setMsg(data.message)
-        const newFields = { ...fields }
-
-        if (data.errors) {
-            Object.keys(newFields).forEach(k => {
-                newFields[k].errors = data.errors[k] || []
-            })
-        }
-        setFields(newFields)
-    }
-
-    useEffect(() => {
-        const newData = {}
-
-        Object.keys(fields).forEach(k => {
-            newData[k] = fields[k].value
-        })
-
-        setData(newData)
-
-    }, [fields])
-
-
-    // useEffect(() => {
-    //     setFields({ ...initialFields })
-    // }, [initialFields])
-
-    return {
-        msg,
-        data,
-        fields,
-        loading,
-        send,
-        create,
-        update,
-        populateFields,
-        reset,
-        setValue,
-        setMsg,
-        errorHandler
-    }
-}
-
-export default useForm
+export default useForm;
