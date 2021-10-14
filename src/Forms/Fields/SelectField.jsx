@@ -11,7 +11,6 @@ const SelectField = ({ fields, setAttr, field: f, onChange }) => {
   const { loadItems, data, setItems, items, setData } = useList();
   const [options, setOptions] = useState([]);
   const api = chooseAPI(apiName);
-  // const [lastForeignValue, setLastForeignValue] = useState('')
 
   useEffect(() => {
     if (typeof f.options === "object") {
@@ -29,7 +28,6 @@ const SelectField = ({ fields, setAttr, field: f, onChange }) => {
     if (!loaded && apiName && api) {
       if (typeof f.options === "string") {
         const [, apiMethod, apiArgs] = f.options.split("@");
-        // console.log(api[apiMethod]);
         let argKeys = apiArgs ? apiArgs.split(",") : [];
         let argValues = argKeys.map((key) => {
           const value = fields[key]["value"];
@@ -76,10 +74,6 @@ const SelectField = ({ fields, setAttr, field: f, onChange }) => {
     const newData = await res.json();
     setData(newData);
   }
-
-  // const clickHandler = () => {
-
-  // }
 
   return (
     <React.Fragment>
@@ -131,7 +125,6 @@ const SelectField = ({ fields, setAttr, field: f, onChange }) => {
         <option value="">...</option>
         {options.map((option) => (
           <option
-            // selected={}
             key={option.label || option.id}
             value={option.value || option.id}
           >
