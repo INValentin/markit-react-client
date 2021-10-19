@@ -9,7 +9,7 @@ const useFetch = () => {
     setLoading(true);
     const authHeader = hasToken() ?  { "Authorization": `Bearer ${getToken()}` } : {}
     options.headers = {
-      Accept: "application/json",
+      "Accept": "application/json",
       "Content-Type": "application/json",
       ...authHeader,
       ...(options.headers || {}),
@@ -25,7 +25,8 @@ const useFetch = () => {
       .catch((err) => {
         setLoading(false);
         // console.error(err)
-        throw new Error("(Connection Failed) " + err);
+        alert("Something went wrong!");
+        // window.location.href = "/";
       });
   };
 
