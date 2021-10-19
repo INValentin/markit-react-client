@@ -1,7 +1,7 @@
 import {} from "react";
 import useFetch from "./useFetch";
 
-export const BASE_URL = "http://urmarks-api.herokuapp.com/api";
+export const BASE_URL = "http://localhost/api";
 // const routes = ['index', 'store', 'update', 'delete', 'show'];
 
 const useApi = (resource, custom = {}) => {
