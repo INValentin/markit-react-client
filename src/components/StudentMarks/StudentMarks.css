@@ -8,31 +8,59 @@
 }
 
 .markTable {
-  border-bottom: 1px solid var(--dark-color-op);
+  margin: 0.5rem auto;
+  width: 100%;
+  padding: 1rem 0;
 }
 
-.markTable :is(tr, td, th) {
-  text-align: center;
+.markTable tr {
 }
 
 tr.loader {
   display: block;
   margin: 0;
+  padding: 0.5rem;
+  background-color: unset!important;
 }
 
-.markTable td {
-  font-size: small;
+td {
+  font-size: 16px;
+  padding: .5rem;
+  font-weight: 600;
+  font-family: monospace;
+  /* max-width: 50px;  */
+  width: fit-content;
+  /* tt */
+  overflow: hidden;
 }
 
-.markTable thead tr {
+.markTable th {
   background-color: var(--accent-color-1-op);
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  border-radius: .15rem;
+  font-size: small;
+  text-transform: capitalize;
+  color: var(--accent-color-1);
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--accent-color-1);
 }
+
 .markTable tbody tr:nth-child(even) {
   background-color: var(--accent-color-2-op);
 }
-.markTable th {
-  text-transform: uppercase;
+
+.markTable tr td:not(:first-of-type) {
+  white-space: nowrap;
+}
+
+th small {
   font-size: smaller;
-  color: var(--accent-color-1);
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  /* color: var(--light-color); */
+  text-decoration: underline;
+}
+
+.markTable tr:last-of-type td {
+  border-bottom: 1px solid var(--dark-color);
 }

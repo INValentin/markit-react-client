@@ -43,16 +43,16 @@ export const StudentMarkTable = ({children, headers}) => {
     <table className="markTable">
       <thead>
         <tr>
-          { headers }
-          <th>Module Code</th>
-          <th>Module Name</th>
-          <th>Semester</th>
-          <th>Year</th>
-          <th>Credits</th>
-          <th>Formative Ass. /50</th>
-          <th>Summative Ass. /50</th>
-          <th>Total /100</th>
-          <th>Decision</th>
+          {headers}
+          <th title="Module code">Mod. Code</th>
+          <th title="Module name">Mod. Name</th>
+          <th title="Semester">Sem</th>
+          <th title="Academic year">Year</th>
+          <th title="Module credits">Credits</th>
+          <th title="Formative assessment">Form. Ass.<small><i>/50</i></small> </th>
+          <th title="Summative assessment">Sum. Ass. <small><i>/50</i></small></th>
+          <th title="Total marks">Tot. <small><i>/100</i></small></th>
+          <th title="Decision">Decision</th>
         </tr>
       </thead>
       <tbody>{children}</tbody>
