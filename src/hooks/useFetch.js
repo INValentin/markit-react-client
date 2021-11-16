@@ -6,10 +6,13 @@ const useFetch = () => {
   const { hasToken, getToken } = useToken();
 
   const request = async (url, options = {}) => {
+    url = url.endsWith("/") ? url.slice(0,-1) : url;
     setLoading(true);
-    const authHeader = hasToken() ?  { "Authorization": `Bearer ${getToken()}` } : {}
+    const authHeader = hasToken()
+      ? { Authorization: `Bearer ${getToken()}` }
+      : {};
     options.headers = {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json",
       ...authHeader,
       ...(options.headers || {}),
