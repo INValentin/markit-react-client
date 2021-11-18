@@ -127,7 +127,7 @@ function Layout({ children }) {
     <main className="appWrapper">
       <Modal show={loading} onHide={() => null}>
         <div className="loginLoader">
-          <span className="loader"></span>
+          <span className="loader big"></span>
           {/* <p style={{marginTop: '0rem'}}>Authenticating...</p> */}
         </div>
       </Modal>
@@ -138,7 +138,7 @@ function Layout({ children }) {
             <div className="contentWrapper">{children}</div>
           </div>
           <footer>
-            <span>&copy;UR - 2021 | ISHIMWE Valentin</span>
+            <span>&copy;UR - 2021</span>
           </footer>
         </React.Fragment>
       )}

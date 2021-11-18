@@ -2,13 +2,17 @@ import { useState, useEffect } from "react";
 import { getClone } from "../Forms/fields";
 import useApi from "./useApi";
 
-const useForm = (modelName = {}, intialFields = {}) => {
+const useForm = (modelName = {}, intialFields = {}, defaults = {}) => {
   const [data, setData] = useState({});
   const [msg, setMsg] = useState("");
+  const [defaultsSet, setDefaultsSet] = useState(false)
   const [fields, setFields] = useState(
     getClone(modelName?.fields || "") || intialFields
   );
-  const { loading, store, update: apiUpdate } = useApi(modelName?.api || "");
+
+  const api = useApi(modelName?.api || "");
+
+  const { loading, store, update: apiUpdate } = api;
 
   const setValue = (key, value) => {
     setFields({ ...fields, [key]: { ...fields[key], value } });
@@ -26,6 +30,10 @@ const useForm = (modelName = {}, intialFields = {}) => {
       }
     }
     return Promise.resolve(apiData);
+  };
+
+  const apiMethod = (callback, canReset = true) => {
+    return () => send((body) => callback(api)(body), canReset);
   };
 
   const create = async () => {
@@ -94,9 +102,23 @@ const useForm = (modelName = {}, intialFields = {}) => {
     setData(newData);
   }, [fields]);
 
-  // useEffect(() => {
-  //     setFields({ ...initialFields })
-  // }, [initialFields])
+  useEffect(() => {
+    if (defaultsSet) return undefined
+
+    const newFields = {...fields}
+
+    Object.keys(newFields).forEach((k) => {
+      if (newFields[k]['value'].slice(1) in defaults) {
+        newFields[k]['value'] = defaults[k]
+      }
+    });
+
+    console.log({ newFields })
+
+    setFields(newFields);
+    setDefaultsSet(true);
+  }, [defaultsSet, defaults, fields]);
+
 
   return {
     msg,
@@ -106,6 +128,7 @@ const useForm = (modelName = {}, intialFields = {}) => {
     send,
     create,
     update,
+    apiMethod,
     populateFields,
     reset,
     setValue,

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import useForm from '../hooks/useForm';
 import Form from './Form/Form';
 
-const ModelForm = ({modelName, onDone, action = 'Create', instance}) => {
+const ModelForm = ({modelName, onDone, action = 'Create', instance, defaults = {}}) => {
   if (typeof modelName === 'string') {
     modelName = {
       label: modelName[0].toUpperCase () + modelName.slice(1).toLowerCase(),
@@ -10,8 +10,10 @@ const ModelForm = ({modelName, onDone, action = 'Create', instance}) => {
       api: modelName.toLowerCase () + 's',
     };
   }
-  const {setValue, setError, setAttr, loading, fields, create, update, populateFields} = useForm (
-    modelName
+  const {setValue, setError, setAttr, loading, fields, create, update, apiMethod, populateFields} = useForm (
+    modelName,
+    {},
+    defaults
   );
   const [populated, setPopulated] = useState (false);
 
@@ -28,7 +30,11 @@ const ModelForm = ({modelName, onDone, action = 'Create', instance}) => {
   const actionHandler = async () => {
     const handler = action.toLocaleLowerCase () === 'create'
       ? create
-      : update (instance.id);
+      : (
+        action.toLocaleLowerCase () === 'update' ? update (instance.id) : (
+          apiMethod(api => body => api[action](instance.id, body))
+        )
+        );
 
     const data = await handler ();
     if (!data.errors) {
@@ -40,6 +46,9 @@ const ModelForm = ({modelName, onDone, action = 'Create', instance}) => {
     e.preventDefault ();
     actionHandler ();
   };
+
+
+  useEffect(() => console.log(fields), [fields])
 
   return (
     <form>

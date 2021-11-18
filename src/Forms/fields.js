@@ -108,12 +108,48 @@ const fields = {
     password: { label: "New Password", type: "password" },
     password_confirmation: { label: "Re-enter New Password", type: "password" },
   },
+  
+  
   change_info: {
     name: { label: "New Name", type: "text" },
     email: { label: "New E-mail", type: "email" },
     phone: { label: "Phone", type: "number" },
-  },
+  }
 };
+
+// student module marks record fields
+// fields.studentMarks = {};
+// Object.assign(fields.studentMarks, fields.marks)
+
+// fields.studentMarks.module_id = {
+//   label: "",
+//   type: "hidden",
+//   value: ":module_id",
+// };
+
+// fields.studentMarks.student_id = {
+//   label: "",
+//   type: "hidden",
+//   value: ":student_id",
+// };
+
+// module students marks record fields
+fields.recordMarks = {};
+Object.assign(fields.recordMarks, fields.marks)
+
+fields.recordMarks.module_id = {
+  label: "",
+  type: "hidden",
+  value: ":module_id",
+};
+
+fields.recordMarks.student_id = {
+  label: "",
+  type: "hidden",
+  value: ":student_id",
+};
+
+
 
 export const normalizeFields = (fields) => {
   const fieldsClone = { ...fields };

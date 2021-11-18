@@ -1,0 +1,112 @@
+.showWrapper.showRecordMarks {
+    max-width: 100%;
+    margin: 0.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--dark-color-op);
+    /* background-color: var(--accent-color-1-op); */
+    
+    backdrop-filter: blur(20px);
+}
+.recordMarksModule form {
+    margin: .75rem 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    padding: 1rem .75rem;
+    max-width: 100%;
+    width: auto;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    gap: .5rem;
+    justify-content: space-around;
+    position: relative;
+    /* background-color: #ccc; */
+}
+
+.recordMarksModule form > :is(:not(.inputWrapper, button)) {
+    display: none;
+}
+
+.recordMarksModule form > .inputWrapper.hidden {
+    display: none;
+}
+
+.recordMarksModule form  .inputWrapper {
+    flex: 1;
+    justify-content: space-between;
+    width: auto;
+}
+
+.recordMarksModule form  button {
+    flex: .5;
+    font-size: small;
+    font-weight: lighter;
+    padding: 0.5rem;
+}
+.recordMarksModule form .inputWrapper> :is(input, textarea, select) {
+    font-size: small;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+.recordMarksModule form .inputWrapper> :is(input, textarea, select):is(:focus-visible) {
+    transform: scaleY(1.25);
+    font-size: medium;
+}
+.recordMarksModule form label {
+    font-size: small;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.recordMarksModule {
+    position: relative;
+}
+
+.recordMarksModuleName {
+    font-size: 1.2rem;
+    font-weight: 700;
+    /* margin-bottom: 1rem; */
+    padding: .75rem 1rem;
+    width: 100%;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: .3s;
+    box-shadow: inset -1px 2px 10px 1px rgba(0, 0, 0, 0.5);
+
+}
+
+.recordMarksModuleName:hover {
+    background-color: var(--dark-color-op);
+    color: var(--light-color);
+}
+
+.recordMarksModuleList{
+    background-color: #ccc;
+    border-radius: .5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.recordMarksModule .closeBtn {
+    position: absolute;
+    right: 0;
+    background-color: var(--light-color);
+    bottom: 0;
+    top: auto;
+    padding-bottom: 0.25rem;
+    transition: .3s ease;
+    margin: 0;
+    transform: translateY(0%) !important;
+}
+
+.recordMarksModule .closeBtn:hover {
+    background-color: tomato;
+}
+
+.recordMarksModule form .inputWrapper .errorWrapper {
+    font-size: 10px;
+    font-weight: bold;
+}

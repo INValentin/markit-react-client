@@ -17,18 +17,16 @@ const View = () => {
 
   useEffect(() => {
     if (!user || viewTypeSet) return undefined;
-    if (user.type === "admin" || user.type === "teacher") {
-      viewType !== "departments" && setViewType("department");
-    } else if (user.type === "student") {
-      viewType !== "modules" && setViewType("module");
-    }
+    // if (user.type === "admin" || user.type === "teacher") {
+    //   viewType !== "departments" && setViewType("department");
+    // } else if (user.type === "student") {
+    //   viewType !== "modules" && setViewType("module");
+    // }
     setViewTypeSet(true);
   }, [user, viewType, viewTypeSet]);
 
   return (
     <div>
-      {/* <h1 className="viewHeader">View</h1> */}
-      {/* <span className="loader"></span> */}
       <div className="viewBtnWrapper">
         <AuthIn userTypes={["admin", "teacher"]}>
           <button

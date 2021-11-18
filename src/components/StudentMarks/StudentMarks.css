@@ -13,8 +13,6 @@
   padding: 1rem 0;
 }
 
-.markTable tr {
-}
 
 tr.loader {
   display: block;
@@ -28,10 +26,9 @@ td {
   padding: .5rem;
   font-weight: 600;
   font-family: monospace;
-  /* max-width: 50px;  */
   width: fit-content;
-  /* tt */
   overflow: hidden;
+  border: 1px solid var(--dark-color-op);
 }
 
 .markTable th {

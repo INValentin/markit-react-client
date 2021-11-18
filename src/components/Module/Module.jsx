@@ -6,6 +6,7 @@ import ShowModule from '../ShowModule/ShowModule';
 import ModelForm from '../../Forms/ModelForm';
 import ModuleMarks from '../ModuleMarks/ModuleMarks';
 import {useModuleApi} from '../../hooks/useApi';
+import RecordModuleMarks from '../RecordModuleMarks/RecordModuleMarks';
 
 const Module = ({module, onDelete, onUpdate}) => {
   const {loading, destroy} = useModuleApi ();
@@ -19,6 +20,12 @@ const Module = ({module, onDelete, onUpdate}) => {
     show: showUpdate,
     showModal: showUpdateModal,
     hideModal: hideUpdateModal,
+  } = useModal ();
+
+  const {
+    show: shouldRecordMarks,
+    toggleModal: toggleRecordMarks,
+    hideModal: hideRecordMarks,
   } = useModal ();
 
   const {
@@ -43,7 +50,7 @@ const Module = ({module, onDelete, onUpdate}) => {
   return (
     <div className="module">
       {loading && <span className="loader" />}
-      {!loading &&
+      {!loading && (
         <React.Fragment>
           <Modal onHide={hideModule} show={moduleShow}>
             <ShowModule
@@ -56,7 +63,7 @@ const Module = ({module, onDelete, onUpdate}) => {
           <Modal show={showUpdate} onHide={hideUpdateModal}>
             <ModelForm
               onDone={onUpdate}
-              modelName={'module'}
+              modelName={"module"}
               action="Update"
               instance={module}
             />
@@ -64,11 +71,15 @@ const Module = ({module, onDelete, onUpdate}) => {
           <Modal show={showMarks} onHide={hideMarksModal}>
             <ModuleMarks module={module} />
           </Modal>
+          <Modal show={shouldRecordMarks} onHide={hideRecordMarks}>
+            <RecordModuleMarks module={module} />
+          </Modal>
 
           <span onClick={toggleShowModule} className="moduleName">
             {module.name}
           </span>
           <div className="moduleBtns">
+            <button className="btn btnSm" onClick={toggleRecordMarks}>Record Marks</button>
             <button
               onClick={toggleMarksModal}
               className="btn viewMarksBtn btnSm"
@@ -76,7 +87,8 @@ const Module = ({module, onDelete, onUpdate}) => {
               View Marks
             </button>
           </div>
-        </React.Fragment>}
+        </React.Fragment>
+      )}
     </div>
   );
 };

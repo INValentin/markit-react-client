@@ -1,4 +1,4 @@
-.hideWrapper.hide {
+.hideWrapper:is(.hide) {
     opacity: 0;
     visibility: hidden;
     height: 0;

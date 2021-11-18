@@ -6,6 +6,7 @@ import ShowStudent from '../ShowStudent/ShowStudent';
 import ModelForm from '../../Forms/ModelForm';
 import StudentMarks from '../StudentMarks/StudentMarks';
 import {useStudentApi} from '../../hooks/useApi';
+import RecordStudentMarks from '../RecordStudentMarks/RecordStudentMarks';
 
 const Student = ({student, onDelete, onUpdate}) => {
   const {loading, destroy} = useStudentApi ();
@@ -21,6 +22,13 @@ const Student = ({student, onDelete, onUpdate}) => {
     showModal: showUpdateModal,
     hideModal: hideUpdateModal,
   } = useModal ();
+
+  
+  const {
+    show: shouldRecordMarks,
+    toggleModal: toggleRecordMarks,
+    hideModal: hideRecordMarks,
+  } = useModal();
 
   const {
     show: showMarks,
@@ -43,9 +51,8 @@ const Student = ({student, onDelete, onUpdate}) => {
 
   return (
     <div className="student">
-      {!loading &&
+      {!loading && (
         <React.Fragment>
-
           <Modal onHide={hideStudent} show={studentShow}>
             <ShowStudent
               onDelete={deleteHandler}
@@ -56,7 +63,7 @@ const Student = ({student, onDelete, onUpdate}) => {
           <Modal show={showUpdate} onHide={hideUpdateModal}>
             <ModelForm
               onDone={onUpdate}
-              modelName={'student'}
+              modelName={"student"}
               action="Update"
               instance={student}
             />
@@ -64,10 +71,16 @@ const Student = ({student, onDelete, onUpdate}) => {
           <Modal show={showMarks} onHide={hideMarksModal}>
             <StudentMarks student={student} />
           </Modal>
+          <Modal show={shouldRecordMarks} onHide={hideRecordMarks}>
+            <RecordStudentMarks student={student} />
+          </Modal>
           <span onClick={toggleShowStudent} className="studentName">
             {student.name}
           </span>
           <div className="studentBtns">
+            <button onClick={toggleRecordMarks} className="btn btnSm">
+              Record Marks
+            </button>
             <button
               onClick={toggleMarksModal}
               className="btn viewMarksBtn btnSm"
@@ -75,7 +88,8 @@ const Student = ({student, onDelete, onUpdate}) => {
               View Marks
             </button>
           </div>
-        </React.Fragment>}
+        </React.Fragment>
+      )}
       {loading && <span className="loader" />}
     </div>
   );

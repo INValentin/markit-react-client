@@ -46,7 +46,7 @@ const Modal = ({children, show = false, onHide, Component = null}) => {
         onClick={toggleHandler}
         className={`${!show ? 'hide' : ''} modalWrapper`}
       >
-        <button onClick={onHide} className="closeBtn">Close</button>
+        <button onClick={onHide} className="closeBtn" dangerouslySetInnerHTML={{__html: "&times;"}}></button>
         {typeof Component === 'function' ? <Component /> : children}
       </div>,
       document.getElementById ('modal-root')
