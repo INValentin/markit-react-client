@@ -58,7 +58,7 @@ const MarkView = () => {
         <Form fields={fields} setValue={setValue} />
       </MarkFilter>
       {!canLoad &&
-        <p style={{fontSize: '1.7rem', color: 'var(--dark-color-op)'}}>
+        <p style={{fontSize: '1.7rem', textAlign: 'center', color: 'var(--dark-color-op)'}}>
           Select year and semester to view marks for.
         </p>}
       {loading

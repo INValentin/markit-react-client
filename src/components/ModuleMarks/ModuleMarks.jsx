@@ -5,7 +5,7 @@ import './ModuleMarks.css';
 
 const ModuleMarks = ({module}) => {
   const {loading, listMarks} = useModuleApi ();
-  const {loadItems, items: marks, appendItem} = useList ();
+  const {loadItems, items: marks} = useList ();
   const [loaded, setLoaded] = useState (false);
 
   useEffect (
@@ -21,17 +21,22 @@ const ModuleMarks = ({module}) => {
   return (
     <div className="showWrapper marksShowWrapper">
       <h2>{module.name}</h2>
+      <button onClick={(e) => setLoaded(false)} className="refreshBtn btn btnSm">
+        Rfresh
+      </button>
       {loading && <span className="loader" />}
-      {!loading && marks.length === 0 ? 'No marks yet.' : ''}
-      {!loading && marks.length
-        ? <div className="marksListWrapper">
-            <ModuleMarkTable>
-              {marks.map (mark => {
-                return <ModuleMark module={module} mark={mark} key={mark.id} />;
-              })}
-            </ModuleMarkTable>
-          </div>
-        : ''}
+      {!loading && marks.length === 0 ? "No marks yet." : ""}
+      {!loading && marks.length ? (
+        <div className="marksListWrapper">
+          <ModuleMarkTable>
+            {marks.map((mark) => {
+              return <ModuleMark module={module} mark={mark} key={mark.id} />;
+            })}
+          </ModuleMarkTable>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
