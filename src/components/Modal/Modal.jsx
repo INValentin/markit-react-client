@@ -21,7 +21,7 @@ export const useModal = () => {
   };
 };
 
-const Modal = ({children, show = false, onHide, Component = null}) => {
+const Modal = ({children, show = false, onHide, Component = null, attrs={}}) => {
   const [wasShown, setWasShown] = useState (false);
 
   useEffect (
@@ -45,6 +45,7 @@ const Modal = ({children, show = false, onHide, Component = null}) => {
       <div
         onClick={toggleHandler}
         className={`${!show ? 'hide' : ''} modalWrapper`}
+        { ...attrs }
       >
         <button onClick={onHide} className="closeBtn" dangerouslySetInnerHTML={{__html: "&times;"}}></button>
         {typeof Component === 'function' ? <Component /> : children}

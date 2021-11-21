@@ -10,7 +10,7 @@ const ModelForm = ({modelName, onDone, action = 'Create', instance, defaults = {
       api: modelName.toLowerCase () + 's',
     };
   }
-  const {setValue, setError, setAttr, loading, fields, create, update, apiMethod, populateFields} = useForm (
+  const {setValue, msg, setError, setAttr, loading, fields, create, update, apiMethod, populateFields} = useForm (
     modelName,
     {},
     defaults
@@ -48,14 +48,15 @@ const ModelForm = ({modelName, onDone, action = 'Create', instance, defaults = {
   };
 
 
-  useEffect(() => console.log(fields), [fields])
+  // useEffect(() => console.log(fields), [fields])
 
   return (
     <form>
       <h2 className="formHeader">{modelName.label}</h2>
+       { msg && <div className="formMsg">{(action + modelName.label).toLowerCase()} successful :)</div> }
       <Form setAttr={setAttr} setError={setError} setValue={setValue} fields={fields} />
       <button className="btn formSubmitBtn" onClick={submitHandler}>
-        {!loading ? `${action} ${modelName.label}` : '...'}
+        {action} {modelName.label} {loading &&  <div className="loader formLoader"></div> }
       </button>
     </form>
   );

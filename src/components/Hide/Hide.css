@@ -1,19 +1,22 @@
 .hideWrapper:is(.hide) {
     opacity: 0;
     visibility: hidden;
-    height: 0;
-    width: 0;
     pointer-events: none;
-    transform: translateY(10px);
+    max-height: 0;
     margin: 0;
     padding: 0;
-    z-index: -10000000;
-    inset: 0;
-    position: fixed;
-
+    width: 100%;
+    z-index: -1000;
+    /* transform: scaleX(.8); */
 }
+
+.hideWrapper:is(.hide) .closeBtn {
+    display: none;
+}
+
 .hideWrapper {
-    transition: transform .3s;
+    transition: height .3s;
     opacity: 1;
     visibility: visible;
+    /* transform: scaleX(1); */
 }

@@ -42,8 +42,8 @@ const Login = () => {
       <form className="authForm">
         {msg && <h5 className="formMsg danger">{msg}</h5>}
         <Form setValue={setValue} fields={fields} />
-        <button onClick={submitHandler} className="btn authBtn btnBlock">
-          {loading ? 'Logging in ...' : 'Login'}
+        <button onClick={submitHandler} className="btn formSubmitBtn authBtn btnBlock">
+          Login {loading && <div className="loader formLoader"></div> }
         </button>
       </form>
     </div>

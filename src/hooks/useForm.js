@@ -9,6 +9,7 @@ const useForm = (modelName = {}, intialFields = {}, defaults = {}) => {
   const [fields, setFields] = useState(
     getClone(modelName?.fields || "") || intialFields
   );
+  const [initialData, setInitialData] = useState({})
 
   const api = useApi(modelName?.api || "");
 
@@ -24,7 +25,7 @@ const useForm = (modelName = {}, intialFields = {}, defaults = {}) => {
     if (!res.ok) {
       errorHandler(apiData);
     } else {
-      setMsg(data.message || "Operation Successful!");
+      setMsg("Action Completed!");
       if (canReset) {
         reset();
       }
@@ -42,7 +43,6 @@ const useForm = (modelName = {}, intialFields = {}, defaults = {}) => {
   };
 
   const setError = (key, error) => {
-    console.log(fields[key]);
     setFields({
       ...fields,
       [key]: { ...fields[key], errors: [...fields[key].errors].push(error) },
@@ -81,7 +81,7 @@ const useForm = (modelName = {}, intialFields = {}, defaults = {}) => {
   };
 
   function errorHandler(data) {
-    if (data.message) setMsg(data.message);
+    // if (data.message) setMsg(data.message);
     const newFields = { ...fields };
 
     if (data.errors) {
@@ -101,23 +101,27 @@ const useForm = (modelName = {}, intialFields = {}, defaults = {}) => {
 
     setData(newData);
   }, [fields]);
-
+  
+  
   useEffect(() => {
     if (defaultsSet) return undefined
 
     const newFields = {...fields}
 
-    Object.keys(newFields).forEach((k) => {
-      if (newFields[k]['value'].slice(1) in defaults) {
-        newFields[k]['value'] = defaults[k]
-      }
-    });
-
-    console.log({ newFields })
+    Object.keys(defaults).forEach((k) => {
+      newFields[k]['value'] = defaults[k]
+    }); 
 
     setFields(newFields);
     setDefaultsSet(true);
-  }, [defaultsSet, defaults, fields]);
+  }, [defaultsSet, defaults, initialData, fields]);
+
+  useEffect(() => {
+    if (Object.entries(defaults).some(([k,v]) => v !== initialData[k])) {
+      setInitialData({...defaults})
+      setDefaultsSet(false)
+    }
+  }, [defaults, initialData])
 
 
   return {

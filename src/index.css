@@ -14,7 +14,7 @@
   --accent-color-2: #feaa00;
   --accent-color-1-op: #78840280;
   --accent-color-2-op: #fea90080;
-  --shadow: 5px 5px 10px rgba(0,0,0,.5);
+  --shadow: 0 0 10px 6px rgba(0,0,0,.3) ;
   
 }
 
@@ -113,9 +113,10 @@ h1 {
 /* loader */
 .loader {
   position: relative;
-  max-width: fit-content;
-  text-align: center;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
 }
 
 .loader::before {
@@ -125,19 +126,15 @@ h1 {
   margin: 0.25rem;
   border-radius: 50%;
   border-style: double;
+  --y: 50%;
+  --x: 0;
   animation: 3s border-spin infinite linear;
   border-color: var(--dark-color);
+  transform: translateY(50%);
 }
 
 .loader::after {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-60%);
   content: "Loading...";
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
   color: var(--dark-color);
 }
 
@@ -162,7 +159,7 @@ div:is(.teacherList, .studentList, .dptList, .moduleList) > div {
   justify-content: space-between;
 }
 
-div:is(.teacherList, .studentList, .dptList, .moduleList) > div > span {
+div:is(.teacherList, .studentList, .dptList, .moduleList) span[class*="Name"] {
   flex: 1;
   padding: 0.5rem 0.75rem;
   display: block !important;
@@ -185,7 +182,6 @@ div:is(.teacherList, .studentList, .dptList, .moduleList) > div:hover {
 @keyframes border-spin {
   0% {
     transform: rotate(-360deg);
-    ;
     border-color: var(--dark-color) transparent var(--dark-color) transparent
   }
 

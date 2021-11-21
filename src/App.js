@@ -125,12 +125,14 @@ function Layout({ children }) {
 
   return (
     <main className="appWrapper">
-      <Modal show={loading} onHide={() => null}>
-        <div className="loginLoader">
-          <span className="loader big"></span>
-          {/* <p style={{marginTop: '0rem'}}>Authenticating...</p> */}
-        </div>
-      </Modal>
+      <div className="appLoader">
+        <Modal show={loading} onHide={() => null}>
+          <div className="loginLoader">
+            <span className="loader big"></span>
+            {/* <p style={{marginTop: '0rem'}}>Authenticating...</p> */}
+          </div>
+        </Modal>
+      </div>
       {(user || location.pathname === "/login") && (
         <React.Fragment>
           <Nav />

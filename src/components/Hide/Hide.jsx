@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useEffect} from 'react'
 import './Hide.css'
 
 
 const Hide = ({children, show, Component=null}) => {
     const [wasShown, setWasShown] = useState(false);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (!wasShown && show) {
             setWasShown(true);
         }

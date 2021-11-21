@@ -5,7 +5,7 @@ import './ModuleMarks.css';
 
 const ModuleMarks = ({module}) => {
   const {loading, listMarks} = useModuleApi ();
-  const {loadItems, items: marks} = useList ();
+  const {loadItems, items: marks, appendItem} = useList ();
   const [loaded, setLoaded] = useState (false);
 
   useEffect (

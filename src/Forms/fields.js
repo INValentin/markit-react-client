@@ -149,6 +149,18 @@ fields.recordMarks.student_id = {
   value: ":student_id",
 };
 
+fields.recordMarks.semester = {
+  label: "",
+  type: "hidden",
+  value: ":semester",
+};
+
+fields.recordMarks.academic_year = {
+  label: "",
+  type: "hidden",
+  value: ":academic_year",
+};
+
 
 
 export const normalizeFields = (fields) => {
