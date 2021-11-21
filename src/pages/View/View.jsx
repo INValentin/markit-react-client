@@ -11,17 +11,17 @@ import AuthIn from "../../components/AuthIn/AuthIn";
 import { useUser } from "../../Contexts/AuthContext";
 
 const View = () => {
-  const [viewType, setViewType] = useState("module");
+  const [viewType, setViewType] = useState("department");
   const [viewTypeSet, setViewTypeSet] = useState(false);
   const user = useUser();
 
   useEffect(() => {
     if (!user || viewTypeSet) return undefined;
-    // if (user.type === "admin" || user.type === "teacher") {
-    //   viewType !== "departments" && setViewType("department");
-    // } else if (user.type === "student") {
-    //   viewType !== "modules" && setViewType("module");
-    // }
+     if (user.type === "admin" || user.type === "teacher") {
+       viewType !== "departments" && setViewType("department");
+     } else if (user.type === "student") {
+       viewType !== "modules" && setViewType("module");
+     }
     setViewTypeSet(true);
   }, [user, viewType, viewTypeSet]);
 

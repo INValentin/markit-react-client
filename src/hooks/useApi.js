@@ -3,11 +3,11 @@ import useFetch from "./useFetch";
 
 // local dev api uri
 
-export const BASE_URL = "http://localhost:8000/api";
+//export const BASE_URL = "http://localhost:8000/api";
 
 /* Production api url */
 
-// export const BASE_URL = "https://urmarks-api.herokuapp.com/api";
+export const BASE_URL = "https://urmarks-api.herokuapp.com/api";
 // const routes = ['index', 'store', 'update', 'delete', 'show'];
 
 const useApi = (resource, custom = {}) => {
