@@ -68,7 +68,7 @@ export const ModuleMark = ({mo, mark}) => {
   useEffect (
     () => {
       if (!loaded) {
-        show (mark.module_id).then (async res => {
+        show (mark.student_id).then (async res => {
           const data = await res.json ();
           setStudent (data);
         });

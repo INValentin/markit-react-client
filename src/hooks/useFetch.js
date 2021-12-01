@@ -20,16 +20,17 @@ const useFetch = () => {
     return fetch(url, { ...options })
       .then(async (res) => {
         setLoading(false);
-        if (!res.ok) {
+        if (!res?.ok) {
           console.warn(res);
         }
-        return Promise.resolve(res);
+        return Promise.resolve(res ? res : {});
       })
       .catch((err) => {
         setLoading(false);
         // console.error(err)
-        alert("Something went wrong!");
+        alert("Connection failed!");
         // window.location.href = "/";
+        return Promise.reject("Connection failed!");
       });
   };
 

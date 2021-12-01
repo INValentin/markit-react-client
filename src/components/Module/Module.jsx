@@ -1,49 +1,50 @@
-import React from 'react';
-import './Module.css';
+import React from "react";
+import "./Module.css";
 
-import Modal, {useModal} from '../Modal/Modal';
-import ShowModule from '../ShowModule/ShowModule';
-import ModelForm from '../../Forms/ModelForm';
-import ModuleMarks from '../ModuleMarks/ModuleMarks';
-import {useModuleApi} from '../../hooks/useApi';
-import RecordModuleMarks from '../RecordModuleMarks/RecordModuleMarks';
+import Modal, { useModal } from "../Modal/Modal";
+import ShowModule from "../ShowModule/ShowModule";
+import ModelForm from "../../Forms/ModelForm";
+import ModuleMarks from "../ModuleMarks/ModuleMarks";
+import { useModuleApi } from "../../hooks/useApi";
+import RecordModuleMarks from "../RecordModuleMarks/RecordModuleMarks";
+import AuthIn from "../AuthIn/AuthIn";
 
-const Module = ({module, onDelete, onUpdate}) => {
-  const {loading, destroy} = useModuleApi ();
+const Module = ({ module, onDelete, onUpdate }) => {
+  const { loading, destroy } = useModuleApi();
   const {
     show: moduleShow,
     toggleModal: toggleShowModule,
     hideModal: hideModule,
-  } = useModal ();
+  } = useModal();
 
   const {
     show: showUpdate,
     showModal: showUpdateModal,
     hideModal: hideUpdateModal,
-  } = useModal ();
+  } = useModal();
 
   const {
     show: shouldRecordMarks,
     toggleModal: toggleRecordMarks,
     hideModal: hideRecordMarks,
-  } = useModal ();
+  } = useModal();
 
   const {
     show: showMarks,
     toggleModal: toggleMarksModal,
     hideModal: hideMarksModal,
-  } = useModal ();
+  } = useModal();
 
   const modalShowHandler = () => {
-    hideModule ();
-    showUpdateModal ();
+    hideModule();
+    showUpdateModal();
   };
 
   const deleteHandler = async () => {
-    const res = await destroy (module.id);
-    const data = await res.json ();
+    const res = await destroy(module.id);
+    const data = await res.json();
     if (res.ok && data) {
-      onDelete (module);
+      onDelete(module);
     }
   };
 
@@ -71,15 +72,21 @@ const Module = ({module, onDelete, onUpdate}) => {
           <Modal show={showMarks} onHide={hideMarksModal}>
             <ModuleMarks module={module} />
           </Modal>
-          <Modal show={shouldRecordMarks} onHide={hideRecordMarks}>
-            <RecordModuleMarks module={module} />
-          </Modal>
+          <AuthIn userTypes={["admin", "teacher"]}>
+            <Modal show={shouldRecordMarks} onHide={hideRecordMarks}>
+              <RecordModuleMarks module={module} />
+            </Modal>
+          </AuthIn>
 
           <span onClick={toggleShowModule} className="moduleName">
             {module.name}
           </span>
           <div className="moduleBtns">
-            <button className="btn btnSm" onClick={toggleRecordMarks}>Record Marks</button>
+            <AuthIn userTypes={["admin", "teacher"]}>
+              <button className="btn btnSm" onClick={toggleRecordMarks}>
+                Record Marks
+              </button>
+            </AuthIn>
             <button
               onClick={toggleMarksModal}
               className="btn viewMarksBtn btnSm"
